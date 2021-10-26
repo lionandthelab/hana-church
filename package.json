@@ -18,7 +18,11 @@
     "@nuxtjs/axios": "^5.13.6",
     "@nuxtjs/pwa": "^3.3.5",
     "core-js": "^3.15.1",
-    "nuxt": "^2.15.7",
+    "dotenv": "^10.0.0",
+    "firebase": "^9.0.2",
+    "nuxt": "^2.15.8",
+    "v-calendar": "^2.3.4",
+    "vue-lazytube": "^1.0.2",
     "vuetify": "^2.5.5"
   },
   "devDependencies": {
