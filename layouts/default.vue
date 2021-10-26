@@ -134,7 +134,7 @@ export default {
       // Stash the event so it can be triggered later.
       this.deferredPrompt = e
       console.log('deferredPrompt: ', this.deferredPrompt, e)
-      return true
+      return false
     })
     window.addEventListener('appinstalled', () => {
       this.deferredPrompt = null
@@ -150,6 +150,7 @@ export default {
     async install() {
       if (this.deferredPrompt) {
         await this.deferredPrompt.prompt()
+        console.log('start install!')
       } else {
         console.log('cannot install!')
       }
