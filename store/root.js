@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 export const state = () => ({
-  title: '123',
+  title: 'Loading...',
 })
 
 export const mutations = {
