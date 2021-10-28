@@ -7,6 +7,7 @@
         src="https://www.youtube.com/watch?v=Z-NtPmIhokw"
     /> -->
         <LazyYoutube
+          v-show="url"
           max-height="100%"
           max-width="100%"
           ref="lazyVideo"

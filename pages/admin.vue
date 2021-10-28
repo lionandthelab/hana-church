@@ -39,6 +39,7 @@
             landscape
             full-width
             locale="ko-kr"
+            :day-format="getDay"
             @click:date="getStreams"
           />
           <v-data-iterator
@@ -50,16 +51,9 @@
             no-data-text="해당 날짜에는 스트림 정보가 없습니다."
           >
             <template #default="{ items }">
-              <v-row>
-                <v-col
-                  v-for="item in items"
-                  :key="item.id"
-                  cols="12"
-                  sm="6"
-                  md="4"
-                  lg="3"
-                >
-                  <v-card color="primary" class="my-3 mx-0">
+              <v-row dense>
+                <v-col v-for="item in items" :key="item.id" cols="4">
+                  <v-card color="info" class="my-3 mx-0">
                     <v-card-title>
                       <h4>{{ item.title }}</h4>
                     </v-card-title>
@@ -170,6 +164,9 @@ export default {
     this.setTitle('관리 페이지')
   },
   methods: {
+    getDay(date) {
+      return new Date(date).getDate()
+    },
     checkPassword() {
       if (this.password === '123') {
         this.verified = true

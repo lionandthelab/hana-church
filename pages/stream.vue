@@ -3,6 +3,7 @@
     <v-row justify="center" align="center">
       <v-col>
         <HanaStream :url="watchingUrl" />
+        <v-divider />
       </v-col>
     </v-row>
     <v-row>
@@ -17,27 +18,20 @@
         >
           <template #default="{ items }">
             <v-row dense>
-              <v-col
-                v-for="item in items"
-                :key="item.id"
-                cols="12"
-                sm="4"
-                md="4"
-                lg="4"
-              >
-                <v-card color="" class="my-3 mx-0">
+              <v-col v-for="item in items" :key="item.id" cols="4">
+                <v-card color="" class="my-1 mx-0">
                   <v-img
                     :src="item.thumb"
                     class="white--text align-end"
                     gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
-                    height="200px"
+                    :height="Math.min(windowWidth / 3, 200)"
                   >
-                    <v-card-title>
-                      <h4>{{ item.title }}</h4>
-                    </v-card-title>
                   </v-img>
+                  <v-card-title>
+                    <h5>{{ item.title }}</h5>
+                  </v-card-title>
                   <v-card-subtitle>
-                    {{ item.preacher }} <v-spacer /> {{ item.url }}
+                    {{ item.preacher }} <v-spacer /> {{ item.date }}
                   </v-card-subtitle>
                   <v-card-actions>
                     <v-spacer />
@@ -56,9 +50,12 @@
       <v-col>
         <v-date-picker
           v-model="date"
+          flat
+          scrollable
           color="info"
           full-width
           locale="ko-kr"
+          :day-format="getDay"
           @click:date="getStreams"
         />
       </v-col>
@@ -91,9 +88,19 @@ export default {
 
       // Calendar
       date: '',
+
+      // Screen Size
+      windowWidth: 0,
+      windowHeight: 0,
     }
   },
-  mounted() {},
+  mounted() {
+    window.addEventListener('resize', () => {
+      this.windowWidth = window.innerWidth
+      this.windowHeight = window.innerHeight
+      console.log('w, h: ', this.windowWidth, this.windowHeight)
+    })
+  },
   created() {
     this.setTitle('하나스트림')
     const today = new Date()
@@ -102,6 +109,9 @@ export default {
     console.log(new Date().toISOString(), this.date)
   },
   methods: {
+    getDay(date) {
+      return new Date(date).getDate()
+    },
     watch(url) {
       this.watchingUrl = url
     },
