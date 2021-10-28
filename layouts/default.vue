@@ -44,6 +44,20 @@
       >
         <v-icon color="yellow darken-2">mdi-brightness-6</v-icon>
       </v-btn>
+      <v-menu bottom left>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn icon v-bind="attrs" v-on="on">
+            <v-icon>mdi-dots-vertical</v-icon>
+          </v-btn>
+        </template>
+
+        <v-list>
+          <v-list-item to="admin">
+            <v-list-item-title>관리자</v-list-item-title>
+            <v-icon right>mdi-account-cog-outline</v-icon>
+          </v-list-item>
+        </v-list>
+      </v-menu>
       <!-- <v-btn
         icon
         @click.stop="rightDrawer = !rightDrawer"

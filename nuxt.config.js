@@ -1,4 +1,5 @@
 import colors from 'vuetify/es5/util/colors'
+import firebaseConfig from './firebaseConfig'
 
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
@@ -29,6 +30,7 @@ export default {
     '@nuxt/typescript-build',
     // https://go.nuxtjs.dev/vuetify
     '@nuxtjs/vuetify',
+    '@nuxtjs/moment',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -37,7 +39,17 @@ export default {
     '@nuxtjs/axios',
     // https://go.nuxtjs.dev/pwa
     '@nuxtjs/pwa',
+    '@nuxtjs/firebase',
   ],
+
+  moment: {
+    defaultTimezone: 'Asia/Seoul',
+  },
+
+  firebase: {
+    config: firebaseConfig,
+    services: { auth: true, firestore: true },
+  },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {},

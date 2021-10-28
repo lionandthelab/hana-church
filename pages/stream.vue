@@ -1,49 +1,79 @@
 <template>
-  <div>
+  <v-container fill-height fluid>
     <v-row justify="center" align="center">
-      <v-col cols="12" sm="8" md="6">
-        <v-card class="logo py-4 d-flex justify-center"> </v-card>
-        <v-card>
-          <v-card-title class="headline">
-            {{ date.getFullYear() }}년 {{ date.getMonth() + 1 }}월
-            {{ date.getDate() }}일
-            <v-btn @click="changeDate"> 날짜 변경 </v-btn>
-            <v-date-picker v-model="str_date" v-if="showCalendar" />
-          </v-card-title>
-          <v-card-text>
-            <p>바로 시청하세요</p>
-            <label v-for="(worship, key) in worships" v-bind:key="key">
-              <label v-if="day == worship.day"
-                ><input type="checkbox" class="checkbox" />{{
-                  worship.text
-                }}</label
-              >
-            </label>
-            <HanaStream hanaurl="https://www.youtube.com/watch?v=Vl_PEhupBAQ" />
-            <!-- <button type="button" @click="getData">GET</button>
-          <button type="button" @click="setData">SET</button> -->
-            <br />
-          </v-card-text>
-          <v-card-actions>
-            <v-spacer />
-            <v-btn color="primary" nuxt to="/inspire"> Continue </v-btn>
-            {{ str_date }}
-          </v-card-actions>
-        </v-card>
+      <v-col>
+        <HanaStream :url="watchingUrl" />
       </v-col>
     </v-row>
-  </div>
+    <v-row>
+      <v-col>
+        <v-data-iterator
+          :items="streamInfosSelected"
+          items-per-page="3"
+          item-key="id"
+          single-expand
+          :hide-default-footer="streamInfosSelected.length < 4"
+          no-data-text="해당 날짜에는 스트림 정보가 없습니다."
+        >
+          <template #default="{ items }">
+            <v-row dense>
+              <v-col
+                v-for="item in items"
+                :key="item.id"
+                cols="12"
+                sm="4"
+                md="4"
+                lg="4"
+              >
+                <v-card color="" class="my-3 mx-0">
+                  <v-img
+                    :src="item.thumb"
+                    class="white--text align-end"
+                    gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
+                    height="200px"
+                  >
+                    <v-card-title>
+                      <h4>{{ item.title }}</h4>
+                    </v-card-title>
+                  </v-img>
+                  <v-card-subtitle>
+                    {{ item.preacher }} <v-spacer /> {{ item.url }}
+                  </v-card-subtitle>
+                  <v-card-actions>
+                    <v-spacer />
+                    <v-btn icon @click="watch(item.url)">
+                      <v-icon color="pink"> mdi-video </v-icon></v-btn
+                    >
+                  </v-card-actions>
+                </v-card>
+              </v-col>
+            </v-row>
+          </template>
+        </v-data-iterator>
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col>
+        <v-date-picker
+          v-model="date"
+          color="info"
+          full-width
+          locale="ko-kr"
+          @click:date="getStreams"
+        />
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 <script>
-import { getDoc, setDoc, doc } from 'firebase/firestore'
-import { db } from '../firebase'
-// const db = this.$store.root.db
+import HanaStream from '@/components/HanaStream.vue'
 
 export default {
+  components: {
+    HanaStream,
+  },
   data() {
     return {
-      showCalendar: false,
-      value: '',
       worships: [
         { value: 'sundayworship', text: '주일 예배', day: 6 },
         { value: 'hts', text: '수요 HTS', day: 2 },
@@ -54,89 +84,66 @@ export default {
         { value: 'treejunior', text: '조이트리 1-2 학년 설교', day: 6 },
         { value: 'treesenior', text: '조이트리 3학년 - 조이틴 설교', day: 6 },
       ],
-      txt: '',
-      date: new Date(),
-      str_date: '',
-      day: 0,
-      admin: true,
-      url_1: '',
-      url_2: '',
-      url_3: '',
-      url_4: '',
+
+      // Stream Info of the selected date
+      streamInfosSelected: [],
+      watchingUrl: '',
+
+      // Calendar
+      date: '',
     }
   },
-  mounted() {
-    this.dbRead()
-    var date = new Date(2021, 9, 23)
-    console.log(date)
-    this.day = date.getDay()
-    console.log(this.worships[this.day])
+  mounted() {},
+  created() {
+    this.setTitle('하나스트림')
+    const today = new Date()
+    today.setHours(today.getHours() + 9)
+    this.date = today.toISOString().substr(0, 10)
+    console.log(new Date().toISOString(), this.date)
   },
   methods: {
-    getDate() {
-      this.date = new Date(this.str_date.split('-'))
+    watch(url) {
+      this.watchingUrl = url
     },
-    changeDate() {
-      this.showCalendar = !this.showCalendar
-      return true
-    },
-    getData1() {
-      return this.url_1
-    },
-    getData2() {
-      return this.url_2
-    },
-    getData3() {
-      return this.url_3
-    },
-    getData4() {
-      return this.url_4
-    },
-    dbWrite() {
-      setDoc(doc(db, 'stream', 'url'), {
-        url1: this.url_1,
-        url2: this.url_2,
-        url3: this.url_3,
-        url4: this.url_4,
-      })
-    },
-    dbRead() {
-      getDoc(doc(db, 'stream', 'url')).then((docSnap) => {
-        if (docSnap.exists()) {
-          this.url_1 = docSnap.data().url1
-          this.url_2 = docSnap.data().url2
-          this.url_3 = docSnap.data().url3
-          this.url_4 = docSnap.data().url4
-          console.log('url1:', docSnap.data().url1)
-          console.log('url2:', docSnap.data().url2)
-          console.log('url3:', docSnap.data().url3)
-          console.log('url4:', docSnap.data().url4)
-        } else {
-          console.log('No such document!')
-        }
-      })
+    async getStreams() {
+      const streamCollection = this.$fire.firestore.collection('stream')
+
+      try {
+        this.streamInfosSelected = []
+        await streamCollection
+          .where('date', '==', this.date)
+          .get()
+          .then((querySnapshot) => {
+            // Iterate Through Query Data
+            querySnapshot.docs.forEach((document) => {
+              // Display Retrieved Data To Console
+              const streamInfo = document.data()
+              streamInfo.id = document.id
+
+              // Get thumbnail
+              const splitted = streamInfo.url.split('&')[0]
+              const vid = splitted.substr(splitted.length - 11)
+              if (!vid.includes('share')) {
+                streamInfo.thumb = `http://img.youtube.com/vi/${vid}/hqdefault.jpg`
+              } else {
+                streamInfo.thumb = ''
+              }
+
+              console.log('thumb: ', streamInfo.thumb)
+              this.streamInfosSelected.push(streamInfo)
+
+              if (this.watchingUrl === '') {
+                this.watchingUrl = streamInfo.url
+              }
+            })
+          })
+      } catch (e) {
+        console.error(e)
+      }
     },
     setTitle(value) {
       this.$store.commit('root/setTitle', value)
     },
   },
-
-  created() {
-    this.setTitle('하나스트림')
-  },
 }
 </script>
-<style>
-.checkbox {
-  color: aliceblue;
-  width: 10%;
-  border-style: solid;
-  border-color: aliceblue;
-}
-input {
-  color: aliceblue;
-  width: 80%;
-  border-style: solid;
-  border-color: aliceblue;
-}
-</style>

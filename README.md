@@ -67,3 +67,13 @@ More information about the usage of this directory in [the documentation](https:
 This directory contains your Vuex store files. Creating a file in this directory automatically activates Vuex.
 
 More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/store).
+
+### `.env`
+
+FIREBASE_APIKEY=xxx
+FIREBASE_AUTHDOMAIN=xxx.firebaseapp.com
+FIREBASE_PROJECTID=xxx
+FIREBASE_STORAGE_BUCKET=xxx.appspot.com
+FIREBASE_MESSAGING_SENDERID=xxx
+FIREBASE_APP_ID=xxx
+FIREBASE_MEASUREMENT_ID=xxx
