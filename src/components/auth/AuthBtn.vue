@@ -47,7 +47,7 @@ const provider = new GoogleAuthProvider();
               label="업로드"
               flat
               color="primary"
-              :to="admin"
+              to="/admin"
             ></q-btn>
             <q-btn
               icon="mdi-logout"

@@ -115,7 +115,7 @@ const links4 = [
         <q-space />
 
         <q-tabs v-model="tab" shrink>
-          <q-tab name="소식" label="예배 LIVE" />
+          <q-tab :to="admin" name="소식" label="예배 LIVE" />
           <q-tab name="공동체" label="공동체" />
           <q-tab name="오시는길" label="오시는길" />
         </q-tabs>

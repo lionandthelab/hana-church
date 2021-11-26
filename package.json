@@ -1,8 +1,8 @@
 {
-  "name": "hana-church",
+  "name": "하나교회",
   "version": "0.0.1",
-  "description": "Hana Church",
-  "productName": "Hana Church",
+  "description": "하나교회",
+  "productName": "하나교회",
   "author": "Lionandthelab <lionandthelab@gmail.com>",
   "private": true,
   "scripts": {
