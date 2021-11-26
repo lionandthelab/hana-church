@@ -1,9 +1,9 @@
 export default {
-  apiKey: process.env.FIREBASE_APIKEY,
-  authDomain: process.env.FIREBASE_AUTHDOMAIN,
-  projectId: process.env.FIREBASE_PROJECTID,
-  storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.FIREBASE_MESSAGING_SENDERID,
-  appId: process.env.FIREBASE_APP_ID,
-  measurementId: process.env.FIREBASE_MEASUREMENT_ID,
-}
+  apiKey: "AIzaSyARgrPsNd0dLHmaxdNFiTfB7BXCBi3MboQ",
+  authDomain: "hana-church.firebaseapp.com",
+  projectId: "hana-church",
+  storageBucket: "hana-church.appspot.com",
+  messagingSenderId: "184031147951",
+  appId: "1:184031147951:web:98782823af8fdb6e9b215a",
+  measurementId: "G-SZKB9VR72M"
+};

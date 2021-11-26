@@ -1,0 +1,10 @@
+// app global css in SCSS form
+@import url('https://fonts.googleapis.com/css2?900&family=Nanum+Gothic:wght@400;700;800&display=swap');
+
+a:hover, a:visited, a:link, a:active {
+  text-decoration: none!important;
+  color: inherit;
+
+  -webkit-box-shadow: none!important;
+  box-shadow: none!important;
+}
