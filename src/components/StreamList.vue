@@ -20,7 +20,10 @@ const items = ref<QueryDocumentSnapshot<DocumentData>[]>([]);
 const getData = async () => {
   let q;
   if (props.tag) {
-    q = query(collection(db, 'streams'), where('tag', '==', props.tag));
+    q = query(
+      collection(db, 'streams'),
+      where('tag', '==', props.tag.toUpperCase())
+    );
   } else {
     q = query(collection(db, 'streams'));
   }
@@ -28,7 +31,7 @@ const getData = async () => {
   const querySnapshot = await getDocs(q);
   items.value = querySnapshot.docs;
 
-  // sort by lastest order
+  // sort by latest order
   items.value = items.value.sort(
     (a, b) => (a.data().date < b.data().date && 1) || -1
   );
