@@ -20,10 +20,7 @@ const items = ref<QueryDocumentSnapshot<DocumentData>[]>([]);
 const getData = async () => {
   let q;
   if (props.tag) {
-    q = query(
-      collection(db, 'streams'),
-      where('tag', '==', props.tag.toUpperCase())
-    );
+    q = query(collection(db, 'streams'), where('tag', '==', props.tag));
   } else {
     q = query(collection(db, 'streams'));
   }
