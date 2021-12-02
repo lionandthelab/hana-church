@@ -38,11 +38,11 @@ const routes: RouteRecordRaw[] = [
     ],
   },
   {
-    path: '/watch/:id',
+    path: '/watch/:streamDocId',
     component: () => import('layouts/MainLayout.vue'),
     children: [
       {
-        path: '/watch/:id',
+        path: '/watch/:streamDocId',
         component: () => import('pages/Watch.vue'),
         props: true,
       },

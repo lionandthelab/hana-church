@@ -6,12 +6,11 @@ const props = defineProps<{
   item: QueryDocumentSnapshot<DocumentData>;
 }>();
 const stream = computed(() => props.item.data());
+const streamTo = computed(() => `/Watch/${props.item.id}`);
 </script>
 <template>
   <div>
-    <router-link
-      :to="'/Watch/' + stream.tag + '&' + stream.date.split('/').join('')"
-    >
+    <router-link :to="streamTo">
       <q-card class="my-card">
         <q-img :src="stream.thumbnailUrl" :ratio="16 / 9" />
         <q-card-section>
