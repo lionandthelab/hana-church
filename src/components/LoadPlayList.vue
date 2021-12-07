@@ -82,13 +82,22 @@ const existenceCheckRule = (val: string) =>
   (val && val.length > 0) || '입력란이 비었습니다';
 </script>
 <template>
-  <q-card v-if="isSigned && firebaseUser?.email === 'lionandthelab@gmail.com'">
+  <q-card v-if="isSigned && (firebaseUser?.email === 'lionandthelab@gmail.com' || firebaseUser?.email === 'hyungsuk0315@gmail.com')">
     <q-form @submit="onSubmit" @reset="onReset" class="q-gutter-md">
       <q-card-section>
         <q-input
           filled
           v-model="playlistId"
           label="재생목록 ID"
+          hint="내용을 입력하세요"
+          lazy-rules
+          :rules="[existenceCheckRule]"
+        />
+
+        <q-input
+          filled
+          v-model="playlistId"
+          label="재생목록 이름"
           hint="내용을 입력하세요"
           lazy-rules
           :rules="[existenceCheckRule]"

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import StreamList from 'src/components/StreamList.vue';
+import PlayList from 'src/components/PlayList.vue';
 import { defineProps } from 'vue';
 // const tagList = {
 //   UCM: '토요 예배(UCM)',
@@ -14,12 +15,14 @@ import { defineProps } from 'vue';
 const props = defineProps<{
   tag: string;
 }>();
+console.log('[Message] props - ', props.tag)
 </script>
 <template>
   <q-page>
     <!-- {{ tagList[props.tag] }} -->
     <q-item>
-      <StreamList :tag="props.tag" :key="props.tag" />
+      <PlayList :tag="props.tag" :key="props.tag"/>
+      <!-- <StreamList :tag="props.tag" :key="props.tag" /> -->
     </q-item>
   </q-page>
 </template>
