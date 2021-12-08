@@ -1,5 +1,12 @@
+<<<<<<< HEAD
+
+
+<script>
+import { defineComponent } from 'vue'
+=======
 <script setup lang="ts">
 import StreamListItem from 'src/components/StreamListItem.vue';
+>>>>>>> 34697584216cc897c7b0dd2af023e8f3fd2e2398
 import { db } from 'boot/firebase';
 import {
   collection,
@@ -8,6 +15,41 @@ import {
   QueryDocumentSnapshot,
   DocumentData,
   where,
+<<<<<<< HEAD
+  getDatabase,ref, onValue
+} from 'firebase/firestore';
+
+export default defineComponent({
+    name:'PlayList',
+    props:{
+        tag:{
+            required:true,
+            type:String
+        }
+    },
+    setup(props) {
+        const dbRef = ref(getDatabase());
+        get(child(dbRef, 'HTS')).then((snapshot) => {
+        if (snapshot.exists()) {
+            console.log(snapshot.val());
+        } else {
+            console.log('No data available');
+        }
+        }).catch((error) => {
+        console.error(error);
+        });
+    },
+    mounted() {
+        console.log('[PlayList] items ', this.items)
+    }
+})
+</script>
+<template>
+  <div v-for="(item, i) in items" :key="i"> 
+      play list {{item}}
+  </div>  
+</template>
+=======
 } from 'firebase/firestore';
 import { onMounted, ref, defineProps } from 'vue';
 import { rejects } from 'assert';
@@ -85,3 +127,4 @@ onMounted(() => getData());
     </q-carousel>
   </div>
 </template>
+>>>>>>> 34697584216cc897c7b0dd2af023e8f3fd2e2398

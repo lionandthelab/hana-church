@@ -123,6 +123,15 @@ const existenceCheckRule = (val: string) =>
 
         <q-input
           filled
+          v-model="playlistId"
+          label="재생목록 이름"
+          hint="내용을 입력하세요"
+          lazy-rules
+          :rules="[existenceCheckRule]"
+        />
+
+        <q-input
+          filled
           v-model="tag"
           label="분류"
           hint="내용을 입력하세요"
