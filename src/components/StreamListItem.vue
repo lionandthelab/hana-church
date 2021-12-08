@@ -12,14 +12,7 @@ const streamTo = computed(() => `/Watch/${props.item.id}`);
   <div>
     <router-link :to="streamTo">
       <q-card class="my-card">
-        <q-img :src="stream.thumbnailUrl" :ratio="16 / 9" />
-        <q-card-section>
-          <div class="text-h6">
-            {{ stream.title }}
-          </div>
-          <div class="text-subtitle2">{{ stream.tag }}</div>
-          <div class="text-subtitle2">{{ stream.date }}</div>
-        </q-card-section>
+        <q-img :src="stream.thumbnailUrl" :ratio="16 / 9"/>
       </q-card>
     </router-link>
   </div>

@@ -40,7 +40,6 @@ onUpdated(() => getData());
 </script>
 <template>
   <q-page>
-    <div>hi</div>
     <!-- {{ tagList[props.tag] }} -->
       <div v-for="(item, i) in items" :key="i">
         <div :key="i">

@@ -10,13 +10,13 @@ import {
   where,
 } from 'firebase/firestore';
 import { onMounted, ref, defineProps } from 'vue';
+import { rejects } from 'assert';
 
 const props = defineProps<{
   tag: string;
 }>();
 
 const items = ref<QueryDocumentSnapshot<DocumentData>[]>([]);
-
 const getData = async () => {
   let q;
   if (props.tag) {
@@ -34,6 +34,24 @@ const getData = async () => {
   );
   console.log('[PlayList]', items.value[0].data());
 };
+const test = function() {
+  let arr = [];
+  for(var i = 0 ; i < items.value.length ; i = i+4){
+    try{
+      let unit = [];
+      items.value[i] != undefined?unit.push(items.value[i]):console.log('empty');
+      items.value[i+1] != undefined?unit.push(items.value[i+1]):console.log('empty');
+      items.value[i+2] != undefined?unit.push(items.value[i+2]):console.log('empty');
+      items.value[i+3] != undefined?unit.push(items.value[i+3]):console.log('empty');
+      arr.push(unit);
+    }
+    catch(e){
+      console.log('catch - ', e);
+    }
+  }
+  console.log('arr - ' ,arr)
+  return arr;
+}
 const slide = ref(1);
 onMounted(() => getData());
 </script>
@@ -48,20 +66,22 @@ onMounted(() => getData());
       control-color="primary"
       padding
       arrows
-      height="350px"
       class="bg-grey-1 shadow-2 rounded-borders"
     >
-      <q-carousel-slide :name="1" class="column no-wrap">
+      <q-carousel-slide v-for="(units, i) in test()" :key='i' :name="i" class="column no-wrap">
         <div class="row fit justify-start items-center q-gutter-xs q-col-gutter no-wrap">
-        <div
-        class="col-3"
-        v-for="item in items"
-        :key="item.id"
-      >
-        <StreamListItem :item="item" />
-      </div>
+          <div class="full-width" v-for="(unit, i ) in units" :key='i'>
+            <StreamListItem :item="unit" />
+          </div>
         </div>
       </q-carousel-slide>
+      <!-- <q-carousel-slide v-for="(item, i) in items" :key='i' :name="i" class="column no-wrap">
+        <div class="row fit justify-start items-center q-gutter-xs q-col-gutter no-wrap">
+          <div class="col full-width">
+            <StreamListItem :item="item" />
+          </div>
+        </div> -->
+      <!-- </q-carousel-slide> -->
     </q-carousel>
   </div>
 </template>
