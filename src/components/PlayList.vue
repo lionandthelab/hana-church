@@ -1,12 +1,5 @@
-<<<<<<< HEAD
-
-
-<script>
-import { defineComponent } from 'vue'
-=======
 <script setup lang="ts">
 import StreamListItem from 'src/components/StreamListItem.vue';
->>>>>>> 34697584216cc897c7b0dd2af023e8f3fd2e2398
 import { db } from 'boot/firebase';
 import {
   collection,
@@ -15,44 +8,8 @@ import {
   QueryDocumentSnapshot,
   DocumentData,
   where,
-<<<<<<< HEAD
-  getDatabase,ref, onValue
-} from 'firebase/firestore';
-
-export default defineComponent({
-    name:'PlayList',
-    props:{
-        tag:{
-            required:true,
-            type:String
-        }
-    },
-    setup(props) {
-        const dbRef = ref(getDatabase());
-        get(child(dbRef, 'HTS')).then((snapshot) => {
-        if (snapshot.exists()) {
-            console.log(snapshot.val());
-        } else {
-            console.log('No data available');
-        }
-        }).catch((error) => {
-        console.error(error);
-        });
-    },
-    mounted() {
-        console.log('[PlayList] items ', this.items)
-    }
-})
-</script>
-<template>
-  <div v-for="(item, i) in items" :key="i"> 
-      play list {{item}}
-  </div>  
-</template>
-=======
 } from 'firebase/firestore';
 import { onMounted, ref, defineProps } from 'vue';
-import { rejects } from 'assert';
 
 const props = defineProps<{
   tag: string;
@@ -110,21 +67,26 @@ onMounted(() => getData());
       arrows
       class="bg-grey-1 shadow-2 rounded-borders"
     >
-      <q-carousel-slide v-for="(units, i) in test()" :key='i' :name="i" class="column no-wrap">
-        <div class="row fit justify-start items-center q-gutter-xs q-col-gutter no-wrap">
-          <div class="full-width" v-for="(unit, i ) in units" :key='i'>
+      <!-- <q-carousel-slide v-for="(units, i) in test()" :key='i' :name="i" height="200px" overflow="hide">
+        <div class="row">
+          <div class="q-pa-md" v-for="(unit, i ) in units" :key='i'>
             <StreamListItem :item="unit" />
           </div>
         </div>
-      </q-carousel-slide>
-      <!-- <q-carousel-slide v-for="(item, i) in items" :key='i' :name="i" class="column no-wrap">
-        <div class="row fit justify-start items-center q-gutter-xs q-col-gutter no-wrap">
-          <div class="col full-width">
+      </q-carousel-slide> -->
+      <q-carousel-slide  :name="1" class="column no-wrap">
+        <div class="row fit justify-start items-center q-gutter-xs q-col-gutter no-wrap" >
+          <div class="rounded-borders col-6 full-height" v-for="(item, i) in items" :key='i'>
             <StreamListItem :item="item" />
           </div>
-        </div> -->
-      <!-- </q-carousel-slide> -->
+        </div>
+      </q-carousel-slide>
     </q-carousel>
   </div>
 </template>
->>>>>>> 34697584216cc897c7b0dd2af023e8f3fd2e2398
+
+<style>
+q-carousel-slide{
+  overflow: auto;
+}
+</style>

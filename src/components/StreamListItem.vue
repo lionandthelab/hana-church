@@ -9,10 +9,11 @@ const stream = computed(() => props.item.data());
 const streamTo = computed(() => `/Watch/${props.item.id}`);
 </script>
 <template>
-  <div>
+  <div class='full-width'>
     <router-link :to="streamTo">
       <q-card class="my-card">
         <q-img :src="stream.thumbnailUrl" :ratio="16 / 9"/>
+        <div class="q-pa-sm">{{stream.title}}</div>
       </q-card>
     </router-link>
   </div>
