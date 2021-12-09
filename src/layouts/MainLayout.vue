@@ -7,6 +7,7 @@ import {
   fasBook,
   fasBookmark,
   fasPen,
+  fasDiceOne,
 } from '@quasar/extras/fontawesome-v5';
 import AuthBtn from 'components/auth/AuthBtn.vue';
 import { useQuasar } from 'quasar';
@@ -24,6 +25,7 @@ const links1 = [
 const links2 = [
   { icon: fasBookmark, text: 'UCM 예배', url: '/message/UCM' },
   { icon: fasPen, text: 'HTS 성경공부', url: '/message/HTS' },
+  { icon: fasDiceOne, text: 'ONE VERSE', url: '/message/OneVerse' },
 ];
 const links3 = [
   { icon: fasBook, text: '하나통독', url: '/read-thru' },

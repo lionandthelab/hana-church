@@ -28,7 +28,7 @@ const getData = async () => {
   const querySnapshot = await getDocs(q);
   items.value = querySnapshot.docs;
 
-  // sort by lastest order
+  // sort by latest order
   items.value = items.value.sort(
     (a, b) => (a.data().date < b.data().date && 1) || -1
   );
