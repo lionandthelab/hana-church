@@ -139,9 +139,9 @@ module.exports = configure(function (ctx) {
       },
 
       manifest: {
-        name: '하나교회',
-        short_name: '하나교회',
-        description: '하나교회',
+        name: '신촌하나교회',
+        short_name: '신촌하나교회',
+        description: '신촌하나교회',
         display: 'standalone',
         orientation: 'portrait',
         background_color: '#ffffff',
