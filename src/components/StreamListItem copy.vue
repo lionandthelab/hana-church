@@ -7,12 +7,11 @@ const props = defineProps<{
 }>();
 const stream = computed(() => props.item.data());
 const streamTo = computed(() => `/Watch/${props.item.id}`);
-console.log('prps ', props.item)
 </script>
 <template>
   <div min-width="200px">
     <router-link  :to="streamTo">
-      <q-card>
+      <q-card >
         <q-img :src="stream.thumbnailUrl" :ratio="16 / 9"/>
         <q-toolbar-title class="q-pa-sm">{{stream.title}}</q-toolbar-title>
       </q-card>

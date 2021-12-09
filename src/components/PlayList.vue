@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import StreamListItem from 'src/components/StreamListItem.vue';
+import PlayListItem_m from 'src/components/PlayListItem_m.vue';
 import { db } from 'boot/firebase';
 import {
   collection,
@@ -16,6 +17,7 @@ const props = defineProps<{
 }>();
 
 const items = ref<QueryDocumentSnapshot<DocumentData>[]>([]);
+const item = ref<QueryDocumentSnapshot<DocumentData>>();
 const getData = async () => {
   let q;
   if (props.tag) {
@@ -38,10 +40,10 @@ const test = function() {
   for(var i = 0 ; i < items.value.length ; i = i+4){
     try{
       let unit = [];
-      items.value[i] != undefined?unit.push(items.value[i]):console.log('empty');
-      items.value[i+1] != undefined?unit.push(items.value[i+1]):console.log('empty');
-      items.value[i+2] != undefined?unit.push(items.value[i+2]):console.log('empty');
-      items.value[i+3] != undefined?unit.push(items.value[i+3]):console.log('empty');
+      items.value[i] != undefined?unit.push(items.value[i]):unit.push(item.value);
+      items.value[i+1] != undefined?unit.push(items.value[i+1]):unit.push(item.value);
+      items.value[i+2] != undefined?unit.push(items.value[i+2]):unit.push(item.value);
+      items.value[i+3] != undefined?unit.push(items.value[i+3]):unit.push(item.value);
       arr.push(unit);
     }
     catch(e){
@@ -56,7 +58,7 @@ onMounted(() => getData());
 </script>
 <template>
   <div class="q-pa-md">
-    <q-carousel
+    <!-- <q-carousel
       v-model="slide"
       transition-prev="slide-right"
       transition-next="slide-left"
@@ -66,27 +68,23 @@ onMounted(() => getData());
       padding
       arrows
       class="bg-grey-1 shadow-2 rounded-borders"
+      height="18vw"
     >
-      <!-- <q-carousel-slide v-for="(units, i) in test()" :key='i' :name="i" height="200px" overflow="hide">
-        <div class="row">
-          <div class="q-pa-md" v-for="(unit, i ) in units" :key='i'>
-            <StreamListItem :item="unit" />
-          </div>
-        </div>
-      </q-carousel-slide> -->
-      <q-carousel-slide  :name="1" class="column no-wrap">
-        <div class="row fit justify-start items-center q-gutter-xs q-col-gutter no-wrap" >
-          <div class="rounded-borders col-6 full-height" v-for="(item, i) in items" :key='i'>
-            <StreamListItem :item="item" />
+    
+      <q-carousel-slide v-for="(units, i) in test()" :key='i' :name="i">
+        <div class="row fit justify-start items-center q-gutter-xs q-col-gutter no-wrap">
+          <div class="rounded-borders col full-height q-pa-md" v-for="(unit, i ) in units" :key='i' >
+            <StreamListItem style="width: 15vw"  :item="unit" />
           </div>
         </div>
       </q-carousel-slide>
-    </q-carousel>
+
+    </q-carousel> -->
+    <q-toolbar-title>{{props.tag}} 재생목록</q-toolbar-title>
+    <q-card class='row fit justify-start items-center q-gutter-xs q-col-gutter no-wrap scroll'>
+          <div id='list' v-for="(unit, i ) in items" :key='i' >
+            <StreamListItem style="width: 20vw"  :item="unit" />
+          </div>
+    </q-card>
   </div>
 </template>
-
-<style>
-q-carousel-slide{
-  overflow: auto;
-}
-</style>
