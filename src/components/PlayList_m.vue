@@ -58,11 +58,11 @@ onMounted(() => getData());
 
 </script>
 <template>
-  <q-card class="q-pa-md">
+  <div class="q-pb-lg">
     <div v-for="(item , i ) in items.slice(0,1) " :key="i">
       <PlayListItem_m  :item="item"/>
     </div>
-  </q-card>
+  </div>
 </template>
 
 <style>

@@ -44,6 +44,7 @@ onUpdated(() => getData());
 </script>
 <template>
   <q-page>
+    <q-toolbar-title class='text-center text-weight-bold'>{{props.tag}}</q-toolbar-title>
     <!-- {{ tagList[props.tag] }} -->
     <div v-for="(item, i) in items" :key="i" >
       <PlayList :tag="item.data().playlistName" :key="item.data().playlistName" v-if="!isMobile()"/>
