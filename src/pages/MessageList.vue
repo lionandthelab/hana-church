@@ -39,11 +39,11 @@ onUpdated(() => getData());
 <template>
   <q-page class='q-pa-md'>
 
-    <q-card>
+    <q-div>
       <div class="q-pb-md" v-for="(item, i) in items" :key="i">
         <StreamListItem :item="item" />
       </div>
-    </q-card>
+    </q-div>
   </q-page>
 </template>
 

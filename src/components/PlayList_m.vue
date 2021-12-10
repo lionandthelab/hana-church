@@ -60,7 +60,7 @@ onMounted(() => getData());
 <template>
   <div class="q-pb-lg">
     <div v-for="(item , i ) in items.slice(0,1) " :key="i">
-      <PlayListItem_m  :item="item"/>
+      <PlayListItem_m  :item="item" :len="items.length" /> 
     </div>
   </div>
 </template>

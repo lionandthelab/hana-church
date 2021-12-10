@@ -81,10 +81,17 @@ onMounted(() => getData());
 
     </q-carousel> -->
     <q-toolbar-title>{{props.tag}} 재생목록</q-toolbar-title>
-    <q-card class='row fit justify-start items-center q-gutter-xs q-col-gutter no-wrap scroll'>
-          <div id='list' v-for="(unit, i ) in items" :key='i' >
+    <q-scroll-area style="height: 18vw; width:100%; ">
+    <q-div class='row fit justify-start items-center q-gutter-xs q-col-gutter no-wrap'>
+          <div id='list' v-for="(unit, i ) in items" :key='i' class="q-pr-md"  >
             <StreamListItem style="width: 20vw"  :item="unit" />
           </div>
-    </q-card>
+    </q-div>
+    </q-scroll-area>
   </div>
 </template>
+
+<style lang="scss" scoped>
+  q-card{
+  }
+</style>
