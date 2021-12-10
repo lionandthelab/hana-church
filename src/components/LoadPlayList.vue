@@ -11,6 +11,7 @@ const $q = useQuasar();
 const playlistId = ref('');
 const tag = ref('');
 const preacher = ref('');
+const playlistName = ref('');
 
 // to use fetch with typescript
 // ref: https://stackoverflow.com/questions/41103360/how-to-use-fetch-in-typescript
@@ -37,6 +38,8 @@ const registerStream = async (playlistItem: PlayListItem) => {
     preacher: preacher.value,
     thumbnailUrl: playlistItem.snippet.thumbnails.high.url,
     date: playlistItem.snippet.publishedAt,
+    playlistName:playlistName.value,
+    playlistId : playlistId.value
   });
   // clear();
   $q.notify({
@@ -45,7 +48,21 @@ const registerStream = async (playlistItem: PlayListItem) => {
     icon: 'announcement',
   });
 };
-
+const registerStreamList = async () => {
+  await setDoc(doc(db, tag.value, playlistId.value), {
+    playlistName:playlistName.value,
+    playlistId : playlistId.value
+  });
+  // clear();
+  $q.notify({
+    message: '등록되었습니다',
+    color: 'primary',
+    icon: 'announcement',
+  });
+};
+const onSubmitList = async() => {
+  await registerStreamList();
+}
 const registerPlaylistItems = async () => {
   console.log('playlistId: ', playlistId.value);
 
@@ -65,6 +82,7 @@ const registerPlaylistItems = async () => {
     })
     .then((playlistItems) => {
       playlistItems.map(async (item) => await registerStream(item));
+      return playlistItems
     })
     .catch(function (error) {
       console.log(error);
@@ -73,6 +91,7 @@ const registerPlaylistItems = async () => {
 
 const onSubmit = async () => {
   await registerPlaylistItems();
+  await registerStreamList();
 };
 
 const onReset = () => {
@@ -82,7 +101,7 @@ const existenceCheckRule = (val: string) =>
   (val && val.length > 0) || '입력란이 비었습니다';
 </script>
 <template>
-  <q-card v-if="isSigned && firebaseUser?.email === 'lionandthelab@gmail.com'">
+  <q-card v-if="isSigned && (firebaseUser?.email === 'lionandthelab@gmail.com' || firebaseUser?.email === 'hyungsuk0315@gmail.com')">
     <q-form @submit="onSubmit" @reset="onReset" class="q-gutter-md">
       <q-card-section>
         <q-input
@@ -93,6 +112,15 @@ const existenceCheckRule = (val: string) =>
           lazy-rules
           :rules="[existenceCheckRule]"
         />
+        <q-input
+          filled
+          v-model="playlistName"
+          label="재생목록 이름"
+          hint="내용을 입력하세요"
+          lazy-rules
+          :rules="[existenceCheckRule]"
+        />
+
 
         <q-input
           filled
