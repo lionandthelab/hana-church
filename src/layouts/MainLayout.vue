@@ -55,8 +55,11 @@ const links4 = [
 </script>
 <template>
   <q-layout view="hHr Lpr lFf">
-    <q-header elevated>
-      <q-toolbar class="bg-primary text-white q-pa-xs">
+    <q-header bordered>
+      <q-toolbar
+        class="text-primary q-pa-xs"
+        :class="$q.dark.isActive ? 'bg-dark' : 'bg-white'"
+      >
         <q-btn
           flat
           dense
@@ -68,7 +71,14 @@ const links4 = [
         />
 
         <router-link to="/" style="text-decoration: none; color: inherit">
-          <q-btn flat no-caps no-wrap class="q-ml-xs" #>
+          <q-btn flat no-caps no-wrap class="q-ml-xs" style="width: 170px" #>
+            <q-img
+              fit="contain"
+              src="../assets/hana-church-logo.png"
+              style="height: 30px; max-width: 30px"
+              spinner-color="white"
+              class="rounded-borders"
+            />
             <q-toolbar-title class="text-weight-bolder text-body1">
               신촌하나교회
             </q-toolbar-title>

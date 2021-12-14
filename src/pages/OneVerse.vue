@@ -25,7 +25,7 @@ const getData = async () => {
     today.getDate().toString();
   let q;
   console.log(`today: ${todayString}`);
-  q = query(collection(db, 'streams'), where('date', '==', todayString));
+  q = query(collection(db, 'streams'), where('tag', '==', 'OneVerse'));
   const querySnapshot = await getDocs(q);
   items.value = querySnapshot.docs;
   for (var i = 0; i < items.value.length; i++)
@@ -36,9 +36,13 @@ onMounted(() => getData());
 </script>
 <template>
   <q-page padding>
-    <div class="text-h6">예배 LIVE</div>
-    <q-item v-for="(item, key) in items" :key="key">
-      <StreamListItem :item="item" />
-    </q-item>
+    <q-card class="my-card">
+      <q-card-section>
+        <div class="text-h6">ONE VERSE</div>
+        <q-item v-for="(item, key) in items" :key="key">
+          <StreamListItem :item="item" />
+        </q-item>
+      </q-card-section>
+    </q-card>
   </q-page>
 </template>
