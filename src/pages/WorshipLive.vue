@@ -8,10 +8,11 @@ import {
   DocumentData,
   where,
 } from 'firebase/firestore';
-import { onMounted, ref } from 'vue';
+import { onMounted, onUpdated, ref } from 'vue';
 import StreamListItem from 'src/components/StreamListItem.vue';
 
 const items = ref<QueryDocumentSnapshot<DocumentData>[]>([]);
+const slide = ref(0);
 
 const getData = async () => {
   let today = new Date();
@@ -33,12 +34,33 @@ const getData = async () => {
 };
 
 onMounted(() => getData());
+
+onUpdated(() => getData());
 </script>
 <template>
-  <q-page padding>
-    <div class="text-h6">예배 LIVE</div>
-    <q-item v-for="(item, key) in items" :key="key">
-      <StreamListItem :item="item" />
-    </q-item>
+  <q-page style="width: 100%; max-height: 100vh">
+    <div class="q-pa-md">
+      <q-carousel
+        v-model="slide"
+        swipeable
+        animated
+        :control-type="controlType"
+        control-color="primary"
+        navigation
+        padding
+        arrows
+        height="600px"
+        class="rounded-borders"
+      >
+        <q-carousel-slide
+          :name="key"
+          v-for="(item, key) in items"
+          :key="key"
+          class="column no-wrap flex-center"
+        >
+          <StreamListItem :item="item" imgStyle="width:711px; height:400px" />
+        </q-carousel-slide>
+      </q-carousel>
+    </div>
   </q-page>
 </template>

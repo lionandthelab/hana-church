@@ -75,8 +75,13 @@ onMounted(() => getData());
           no-wrap
         "
       >
-        <div id="list" v-for="(unit, i) in items" :key="i" class="q-pr-md">
-          <StreamListItem style="width: 20vw" :item="unit" />
+        <div
+          id="list"
+          v-for="(unit, i) in items"
+          :key="i"
+          class="q-pa-md column"
+        >
+          <StreamListItem :item="unit" />
         </div>
       </q-div>
     </q-scroll-area>

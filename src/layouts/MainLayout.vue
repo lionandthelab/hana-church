@@ -68,6 +68,7 @@ const links4 = [
           aria-label="Menu"
           @click="toggleLeftDrawer"
           class="q-my-sm q-mx-xs"
+          :class="$q.dark.isActive ? 'text-white' : 'text-black'"
         />
 
         <router-link to="/" style="text-decoration: none; color: inherit">
@@ -79,7 +80,10 @@ const links4 = [
               spinner-color="white"
               class="rounded-borders"
             />
-            <q-toolbar-title class="text-weight-bolder text-body1">
+            <q-toolbar-title
+              class="text-weight-bolder text-body1"
+              :class="$q.dark.isActive ? 'text-white' : 'text-black'"
+            >
               신촌하나교회
             </q-toolbar-title>
           </q-btn>

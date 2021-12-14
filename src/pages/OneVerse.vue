@@ -35,14 +35,11 @@ const getData = async () => {
 onMounted(() => getData());
 </script>
 <template>
-  <q-page padding>
-    <q-card class="my-card">
-      <q-card-section>
-        <div class="text-h6">ONE VERSE</div>
-        <q-item v-for="(item, key) in items" :key="key">
-          <StreamListItem :item="item" />
-        </q-item>
-      </q-card-section>
-    </q-card>
+  <q-page style="width: 100%; max-height: 100vh">
+    <div class="row q-pa-md">
+      <q-item class="col-6 col-md-4" v-for="(item, key) in items" :key="key">
+        <StreamListItem :item="item" imgStyle="width:355px; height:200px" />
+      </q-item>
+    </div>
   </q-page>
 </template>
