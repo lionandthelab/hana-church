@@ -63,32 +63,24 @@ onMounted(() => getData());
       </q-carousel-slide>
 
     </q-carousel> -->
-    <q-toolbar-title>{{ props.tag }}</q-toolbar-title>
-    <q-scroll-area style="height: 18vw; width: 100%">
-      <q-div
-        class="
-          row
-          fit
-          justify-start
-          items-center
-          q-gutter-xs q-col-gutter
-          no-wrap
-        "
-      >
-        <div
-          id="list"
-          v-for="(unit, i) in items"
-          :key="i"
-          class="q-pa-md column"
-        >
-          <StreamListItem :item="unit" />
-        </div>
+    <q-toolbar-title></q-toolbar-title>
+    <div class="q-pa-xs text-weight-bold text-h6 justify-center">
+      <!--<q-icon size="md" name="list" />-->
+      # {{ props.tag }}
+    </div>
+    <q-scroll-area class="q-pa-md" style="height: 270px; max-width: 100%">
+      <q-div class="row fit justify-start items-start q-gutter-xs no-wrap">
+        <StreamListItem
+          class="q-pa-xs"
+          imgStyle="width: 200px"
+          cardStyle="width: 200px"
+          :item="item"
+          v-for="(item, key) in items"
+          :key="key"
+        />
       </q-div>
     </q-scroll-area>
   </div>
 </template>
 
-<style lang="scss" scoped>
-q-card {
-}
-</style>
+<style lang="scss" scoped></style>

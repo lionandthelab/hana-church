@@ -7,47 +7,46 @@ const $q = useQuasar();
 const props = defineProps<{
   item: QueryDocumentSnapshot<DocumentData>;
   imgStyle: string;
+  cardStyle: string;
 }>();
 const stream = computed(() => props.item.data());
 const streamTo = computed(() => `/Watch/${props.item.id}`);
 </script>
 <template>
-  <div>
-    <router-link :to="streamTo">
-      <div class="fit">
-        <q-card>
-          <q-img
-            :style="props.imgStyle"
-            fit="fill"
-            :src="stream.thumbnailUrl"
-            :ratio="16 / 9"
-          />
-        </q-card>
-        <div class="column">
-          <q-label
-            no-caps
-            no-wrap
-            class="q-pa-sm text-h5 text-weight-bolder text-body1"
-            :class="$q.dark.isActive ? 'text-white' : 'text-black'"
-          >
-            {{ stream.title }}
-          </q-label>
-          <q-label
-            id="infoPreacher"
-            class="q-pl-sm text-caption text-weight-light"
-          >
-            {{ stream.preacher }}
-          </q-label>
-          <q-label
-            id="infoPreacher"
-            class="q-pl-sm text-caption text-weight-light"
-          >
-            {{ stream.tag }} • {{ stream.date.split('T')[0] }}
-          </q-label>
-        </div>
+  <router-link :to="streamTo">
+    <div class="fit">
+      <q-card style="width: 100%" :style="props.imgStyle">
+        <q-img
+          :style="props.imgStyle"
+          fit="fill"
+          :src="stream.thumbnailUrl"
+          :ratio="16 / 9"
+        />
+      </q-card>
+      <div class="column" :style="props.cardStyle">
+        <q-label
+          no-caps
+          no-wrap
+          class="q-pa-sm text-h5 text-weight-bolder text-body1"
+          :class="$q.dark.isActive ? 'text-white' : 'text-black'"
+        >
+          {{ stream.title }}
+        </q-label>
+        <q-label
+          id="infoPreacher"
+          class="q-pl-sm text-caption text-weight-light"
+        >
+          {{ stream.preacher }}
+        </q-label>
+        <q-label
+          id="infoPreacher"
+          class="q-pl-sm text-caption text-weight-light"
+        >
+          {{ stream.tag }} • {{ stream.date.split('T')[0] }}
+        </q-label>
       </div>
-    </router-link>
-  </div>
+    </div>
+  </router-link>
 </template>
 
 <style></style>

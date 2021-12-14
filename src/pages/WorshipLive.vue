@@ -49,7 +49,7 @@ onUpdated(() => getData());
         navigation
         padding
         arrows
-        height="600px"
+        height="90vh"
         class="rounded-borders"
       >
         <q-carousel-slide
