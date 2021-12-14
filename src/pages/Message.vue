@@ -9,7 +9,7 @@ import {
   QueryDocumentSnapshot,
   DocumentData,
 } from 'firebase/firestore';
-import { onMounted, ref, defineProps } from 'vue';
+import { onMounted, onUpdated, ref, defineProps } from 'vue';
 
 const props = defineProps<{
   tag: string;
@@ -39,6 +39,7 @@ const isMobile = () => {
   return window.innerWidth < 600;
 };
 onMounted(() => getData());
+onUpdated(() => getData());
 </script>
 <template>
   <q-page style="width: 100%; max-height: 100vh">
