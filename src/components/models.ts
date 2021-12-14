@@ -8,6 +8,11 @@ export interface Stream {
   date: string;
 }
 
+export interface StreamList {
+  playlistName: string;
+  playlistId: string;
+}
+
 export interface Meta {
   totalCount: number;
 }

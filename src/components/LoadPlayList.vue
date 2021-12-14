@@ -38,8 +38,8 @@ const registerStream = async (playlistItem: PlayListItem) => {
     preacher: preacher.value,
     thumbnailUrl: playlistItem.snippet.thumbnails.high.url,
     date: playlistItem.snippet.publishedAt,
-    playlistName:playlistName.value,
-    playlistId : playlistId.value
+    playlistName: playlistName.value,
+    playlistId: playlistId.value,
   });
   // clear();
   $q.notify({
@@ -50,8 +50,8 @@ const registerStream = async (playlistItem: PlayListItem) => {
 };
 const registerStreamList = async () => {
   await setDoc(doc(db, tag.value, playlistId.value), {
-    playlistName:playlistName.value,
-    playlistId : playlistId.value
+    playlistName: playlistName.value,
+    playlistId: playlistId.value,
   });
   // clear();
   $q.notify({
@@ -60,9 +60,7 @@ const registerStreamList = async () => {
     icon: 'announcement',
   });
 };
-const onSubmitList = async() => {
-  await registerStreamList();
-}
+
 const registerPlaylistItems = async () => {
   console.log('playlistId: ', playlistId.value);
 
@@ -82,7 +80,7 @@ const registerPlaylistItems = async () => {
     })
     .then((playlistItems) => {
       playlistItems.map(async (item) => await registerStream(item));
-      return playlistItems
+      return playlistItems;
     })
     .catch(function (error) {
       console.log(error);
@@ -101,7 +99,13 @@ const existenceCheckRule = (val: string) =>
   (val && val.length > 0) || '입력란이 비었습니다';
 </script>
 <template>
-  <q-card v-if="isSigned && (firebaseUser?.email === 'lionandthelab@gmail.com' || firebaseUser?.email === 'hyungsuk0315@gmail.com')">
+  <q-card
+    v-if="
+      isSigned &&
+      (firebaseUser?.email === 'lionandthelab@gmail.com' ||
+        firebaseUser?.email === 'hyungsuk0315@gmail.com')
+    "
+  >
     <q-form @submit="onSubmit" @reset="onReset" class="q-gutter-md">
       <q-card-section>
         <q-input
@@ -120,7 +124,6 @@ const existenceCheckRule = (val: string) =>
           lazy-rules
           :rules="[existenceCheckRule]"
         />
-
 
         <q-input
           filled

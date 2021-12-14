@@ -8,7 +8,6 @@ import {
   query,
   QueryDocumentSnapshot,
   DocumentData,
-  where,
 } from 'firebase/firestore';
 import { onMounted, ref, defineProps, onUpdated } from 'vue';
 
@@ -36,9 +35,9 @@ const getData = async () => {
   console.log('[Debug]', items.value[0]);
 };
 const isMobile = () => {
-  console.log('window size - ', window.innerWidth)
-  return window.innerWidth < 600
-}
+  console.log('window size - ', window.innerWidth);
+  return window.innerWidth < 600;
+};
 onMounted(() => getData());
 onUpdated(() => getData());
 </script>
@@ -46,9 +45,17 @@ onUpdated(() => getData());
   <q-page>
     <!-- <q-toolbar-title class='text-center text-weight-bold'>{{props.tag}}</q-toolbar-title> -->
     <!-- {{ tagList[props.tag] }} -->
-    <div v-for="(item, i) in items" :key="i" >
-      <PlayList :tag="item.data().playlistName" :key="item.data().playlistName" v-if="!isMobile()"/>
-      <PlayList_m :tag="item.data().playlistName" :key="item.data().playlistName" v-if="isMobile()" /> 
+    <div v-for="(item, i) in items" :key="i">
+      <PlayList
+        :tag="item.data().playlistName"
+        :key="item.data().playlistName"
+        v-if="!isMobile()"
+      />
+      <PlayList_m
+        :tag="item.data().playlistName"
+        :key="item.data().playlistName"
+        v-if="isMobile()"
+      />
     </div>
   </q-page>
 </template>
