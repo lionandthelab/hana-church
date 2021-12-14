@@ -89,6 +89,5 @@ const stream: StreamList = computed(() => props.item.data());
 }
 span {
   vertical-align: middle;
-  font: 2em 'Fira Sans', sans-serif;
 }
 </style>

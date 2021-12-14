@@ -64,12 +64,12 @@ const links4 = [
           icon="menu"
           aria-label="Menu"
           @click="toggleLeftDrawer"
-          class="q-my-md q-mx-xs"
+          class="q-my-sm q-mx-xs"
         />
 
         <router-link to="/" style="text-decoration: none; color: inherit">
-          <q-btn flat no-caps no-wrap class="q-ml-xs" v-if="$q.screen.gt.xs" #>
-            <q-toolbar-title class="text-weight-bold">
+          <q-btn flat no-caps no-wrap class="q-ml-xs" #>
+            <q-toolbar-title class="text-weight-bolder text-body1">
               신촌하나교회
             </q-toolbar-title>
           </q-btn>
@@ -122,7 +122,7 @@ const links4 = [
       show-if-above
       elevated
       :class="$q.dark.isActive ? 'bg-dark' : 'bg-white'"
-      :width="240"
+      :width="200"
     >
       <q-scroll-area class="fit">
         <!--<div class="q-pa-lg bg-white">
