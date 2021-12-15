@@ -39,7 +39,7 @@ onMounted(() => getData());
     </div>
     <div class="row q-pa-md">
       <StreamListItem
-        class="q-pa-lg col-6 col-md-4"
+        class="q-pa-md col-xs-6 col-sm-4 col-lg-3 col-xl-2"
         :item="item"
         v-for="(item, key) in items"
         :key="key"

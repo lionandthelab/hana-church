@@ -47,13 +47,12 @@ onUpdated(() => getData());
       <PlayList
         :tag="item.data().playlistName"
         :key="item.data().playlistName"
-        v-if="!isMobile()"
       />
-      <PlayList_m
+      <!--<PlayList_m
         :tag="item.data().playlistName"
         :key="item.data().playlistName"
         v-if="isMobile()"
-      />
+      />-->
     </div>
   </q-page>
 </template>
