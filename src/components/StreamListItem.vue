@@ -33,7 +33,6 @@ const streamTo = computed(() => `/Watch/${props.item.id}`);
             overflow: hidden;
           "
           class="row q-pa-xs text-h5 text-weight-bolder text-body1"
-          :class="$q.dark.isActive ? 'text-white' : 'text-black'"
         >
           {{ stream.title }}
         </q-label>

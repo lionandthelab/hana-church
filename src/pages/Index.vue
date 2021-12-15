@@ -1,6 +1,6 @@
 <template>
   <q-page
-    class="row items-center justify-evenly full-height"
+    class="q-pa-md row items-center justify-evenly full-height"
     style="width: 100%; max-height: 100vh"
   >
     <q-img

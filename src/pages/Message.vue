@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import PlayList from 'src/components/PlayList.vue';
-import PlayList_m from 'src/components/PlayList_m.vue';
 import { db } from 'boot/firebase';
 import {
   collection,
@@ -33,10 +32,6 @@ const getData = async () => {
     (a, b) => (a.data().date < b.data().date && 1) || -1
   );
   console.log('[Debug]', items.value[0]);
-};
-const isMobile = () => {
-  console.log('window size - ', window.innerWidth);
-  return window.innerWidth < 600;
 };
 onMounted(() => getData());
 onUpdated(() => getData());

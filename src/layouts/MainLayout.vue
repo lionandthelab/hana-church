@@ -54,7 +54,7 @@ const links4 = [
 // ];
 </script>
 <template>
-  <q-layout view="hHr Lpr lFf">
+  <q-layout view="hHr Lpr lFf" class="dark">
     <q-header bordered>
       <q-toolbar
         class="text-primary q-pa-xs"
@@ -253,6 +253,18 @@ const links4 = [
             </a>
           </div>
         </div>
+        <q-space></q-space>
+        <q-btn
+          :icon="$q.dark.isActive ? 'mdi-brightness-7' : 'mdi-brightness-4'"
+          flat
+          label="다크모드"
+          :color="$q.dark.isActive ? 'yellow' : 'dark'"
+          @click="$q.dark.toggle()"
+        ></q-btn>
+        <q-toggle
+          v-model="$q.dark.isActive"
+          :color="$q.dark.isActive ? 'yellow' : 'dark'"
+        ></q-toggle>
       </q-scroll-area>
     </q-drawer>
 
