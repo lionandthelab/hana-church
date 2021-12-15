@@ -72,8 +72,8 @@ onMounted(() => getData());
       <q-div class="row fit justify-start items-start q-gutter-xs no-wrap">
         <StreamListItem
           class="q-pa-xs"
-          imgStyle="width: 200px"
-          cardStyle="width: 200px"
+          imgStyle="width: 200px; height: 112px;"
+          cardStyle="width: 200px; height: 112px;"
           :item="item"
           v-for="(item, key) in items"
           :key="key"

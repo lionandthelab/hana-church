@@ -7,7 +7,6 @@ import {
   QueryDocumentSnapshot,
   DocumentData,
   where,
-  orderBy,
 } from 'firebase/firestore';
 import { onMounted, ref } from 'vue';
 import StreamListItem from 'src/components/StreamListItem.vue';
@@ -16,15 +15,6 @@ import { fasDiceOne } from '@quasar/extras/fontawesome-v5';
 const items = ref<QueryDocumentSnapshot<DocumentData>[]>([]);
 
 const getData = async () => {
-  let today = new Date();
-  let todayString =
-    today.getFullYear().toString() +
-    '/' +
-    (today.getMonth() + 1 < 10 ? '0' : '') +
-    (today.getMonth() + 1).toString() +
-    '/' +
-    (today.getDate() < 10 ? '0' : '') +
-    today.getDate().toString();
   let q;
   q = query(collection(db, 'streams'), where('tag', '==', 'OneVerse'));
   const querySnapshot = await getDocs(q);
