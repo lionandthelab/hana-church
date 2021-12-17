@@ -19,7 +19,10 @@ const items = ref<QueryDocumentSnapshot<DocumentData>[]>([]);
 const getData = async () => {
   let q;
   if (props.tag) {
-    q = query(collection(db, 'streams'), where('playlistName', '==', props.tag));
+    q = query(
+      collection(db, 'streams'),
+      where('playlistName', '==', props.tag)
+    );
   } else {
     q = query(collection(db, 'streams'));
   }
@@ -38,6 +41,7 @@ onMounted(() => getData());
 </script>
 <template>
   <div class="q-pa-md">
+<<<<<<< HEAD
     <q-toolbar-title>{{props.tag}} 재생목록</q-toolbar-title>
     <q-scroll-area style="height: 18vw; width:100%; ">
     <q-div class='row fit justify-start items-center q-gutter-xs q-col-gutter no-wrap'>
@@ -45,11 +49,48 @@ onMounted(() => getData());
             <StreamListItem style="width: 20vw"  :item="unit" />
           </div>
     </q-div>
+=======
+    <!-- <q-carousel
+      v-model="slide"
+      transition-prev="slide-right"
+      transition-next="slide-left"
+      swipeable
+      animated
+      control-color="primary"
+      padding
+      arrows
+      class="bg-grey-1 shadow-2 rounded-borders"
+      height="18vw"
+    >
+    
+      <q-carousel-slide v-for="(units, i) in test()" :key='i' :name="i">
+        <div class="row fit justify-start items-center q-gutter-xs q-col-gutter no-wrap">
+          <div class="rounded-borders col full-height q-pa-md" v-for="(unit, i ) in units" :key='i' >
+            <StreamListItem style="width: 15vw"  :item="unit" />
+          </div>
+        </div>
+      </q-carousel-slide>
+
+    </q-carousel> -->
+    <q-toolbar-title></q-toolbar-title>
+    <div class="q-pa-xs text-weight-bold text-h6 justify-center">
+      <!--<q-icon size="md" name="list" />-->
+      # {{ props.tag }}
+    </div>
+    <q-scroll-area class="q-pa-md" style="height: 270px; max-width: 100%">
+      <q-div class="row fit justify-start items-start q-gutter-xs no-wrap">
+        <StreamListItem
+          class="q-pa-xs"
+          imgStyle="width: 200px; height: 112px;"
+          cardStyle="width: 200px; height: 112px;"
+          :item="item"
+          v-for="(item, key) in items"
+          :key="key"
+        />
+      </q-div>
+>>>>>>> 892f2d6eeafa1743ef7a49189c5a1e9fcccd8bfa
     </q-scroll-area>
   </div>
 </template>
 
-<style lang="scss" scoped>
-  q-card{
-  }
-</style>
+<style lang="scss" scoped></style>

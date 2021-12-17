@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import PlayList from 'src/components/PlayList.vue';
-import PlayList_m from 'src/components/PlayList_m.vue';
 import { db } from 'boot/firebase';
 import {
   collection,
@@ -9,7 +8,7 @@ import {
   QueryDocumentSnapshot,
   DocumentData,
 } from 'firebase/firestore';
-import { onMounted, ref, defineProps, onUpdated } from 'vue';
+import { onMounted, onUpdated, ref, defineProps } from 'vue';
 
 const props = defineProps<{
   tag: string;
@@ -34,20 +33,21 @@ const getData = async () => {
   );
   console.log('[Debug]', items.value[0]);
 };
-const isMobile = () => {
-  console.log('window size - ', window.innerWidth)
-  return window.innerWidth < 600
-}
 onMounted(() => getData());
 onUpdated(() => getData());
 </script>
 <template>
-  <q-page>
-    <!-- <q-toolbar-title class='text-center text-weight-bold'>{{props.tag}}</q-toolbar-title> -->
-    <!-- {{ tagList[props.tag] }} -->
-    <div v-for="(item, i) in items" :key="i" >
-      <PlayList :tag="item.data().playlistName" :key="item.data().playlistName" v-if="!isMobile()"/>
-      <PlayList_m :tag="item.data().playlistName" :key="item.data().playlistName" v-if="isMobile()" /> 
+  <q-page style="width: 100%; max-height: 100vh">
+    <div v-for="(item, i) in items" :key="i">
+      <PlayList
+        :tag="item.data().playlistName"
+        :key="item.data().playlistName"
+      />
+      <!--<PlayList_m
+        :tag="item.data().playlistName"
+        :key="item.data().playlistName"
+        v-if="isMobile()"
+      />-->
     </div>
   </q-page>
 </template>

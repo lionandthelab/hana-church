@@ -17,6 +17,11 @@ const routes: RouteRecordRaw[] = [
     children: [{ path: '', component: () => import('pages/WorshipLive.vue') }],
   },
   {
+    path: '/one-verse',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [{ path: '', component: () => import('pages/OneVerse.vue') }],
+  },
+  {
     path: '/joy-chant',
     component: () => import('layouts/MainLayout.vue'),
     children: [{ path: '', component: () => import('pages/JoyChant.vue') }],
