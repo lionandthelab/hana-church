@@ -53,7 +53,6 @@ const test = function() {
   console.log('arr - ' ,arr)
   return arr;
 }
-const slide = ref(1);
 onMounted(() => getData());
 
 </script>

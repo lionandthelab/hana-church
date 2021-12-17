@@ -8,7 +8,7 @@ const props = defineProps<{
 }>();
 const splitterModel = ref(50);
 const stream = computed(() => props.item.data());
-const streamTo = computed(() => `/messagelist/${props.item.data().playlistName}`);
+// const streamTo = computed(() => `/messagelist/${props.item.data().playlistName}`);
 </script>
 <template>
   <div min-width="200px">
