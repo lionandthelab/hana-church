@@ -60,9 +60,6 @@ const registerStreamList = async () => {
     icon: 'announcement',
   });
 };
-const onSubmitList = async() => {
-  await registerStreamList();
-}
 const registerPlaylistItems = async () => {
   console.log('playlistId: ', playlistId.value);
 

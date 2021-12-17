@@ -1,35 +1,22 @@
 <script setup lang="ts">
 import ReadPage from 'src/components/ReadPage.vue';
-import { isSigned, firebaseUser, useAuth } from 'src/composables/useAuth';
-import { ref, onMounted, computed, onUpdated, watchEffect } from 'vue';
+import { firebaseUser } from 'src/composables/useAuth';
+import { ref, watchEffect } from 'vue';
 import { db } from 'boot/firebase';
-import { setDoc,
+import { 
+  setDoc,
   doc,
-  addDoc,
-  updateDoc,
   getDoc,
   QueryDocumentSnapshot,
   DocumentData, } from 'firebase/firestore';
+
 const readPlan = ref();
-const options = [
-        {
-          label: '1독',
-          value: 1
-        },
-        {
-          label: '2독',
-          value: 2
-        },
-        {
-          label: '3독',
-          value: 3
-        }
-      ];  
+const fontSize = ref();
+const options = [{label: '1독',value: 1},{label: '2독',value: 2},{label: '3독',value: 3}];  
 const dialog = ref(false);
-const dialog2 = ref(false);
 const date = ref('2021/12/15');
 const proxyDate = ref('2021/12/15')
-const events = ref(['2021/12/14','2021/12/13']);
+const events = ref<string[]>();
 const updateProxy = function() {
   proxyDate.value = date.value;
 }
@@ -60,57 +47,67 @@ const update = (dd) => {
 const selectPlan = () => {
   console.log('selectPlan ');
 }
-const delay = (time:number) => {
-  return new Promise(resolve => setTimeout(resolve, time));
-}
+
 const item = ref<QueryDocumentSnapshot<DocumentData>>();
 const getUserInfo = async () => {
-////////////////////////////////////
-  while(firebaseUser.value == null){
-    console.log('firebase null');
-    await delay(1000);
-    useAuth();
-  } //help this wonderful code
-////////////////////////////////////
-firebaseUser.value == null
-  const ref = doc(db, 'users', firebaseUser.value.uid);
-  item.value = await getDoc(ref);
-  if(item.value.data() == undefined){
-    console.log('invalid user id')
+  if(firebaseUser.value !== null){
+    console.log('firebaseUser.value.uid', firebaseUser.value.uid);
+    const ref = doc(db, 'users', firebaseUser.value.uid);
+    item.value = await getDoc(ref);
+    if(item.value.data() == undefined){
+    }
+    else if(item.value.data().readPlan == undefined){
+    }
+    else{
+      readPlan.value = item.value.data().readPlan;
+      events.value = item.value.data().checkedDate;
+      fontSize.value = item.value.data().fontSize;
+    }
+    checkInit.value = true;
   }
-  else if(item.value.data().readPlan == undefined){
-  }
-  else{
-    readPlan.value = item.value.data().readPlan;
-  }
-  console.log('read plan ', item.value.data().readPlan)
 };
-const setReadPlan= async ( plan:number) => {
-  console.log('setReadPlan')
-  await updateDoc(doc(db, 'users', firebaseUser.value.uid ), {
+const setUserInfo = async () => {
+  console.log(' setUserInfo firebaseUser.value.uid', firebaseUser.value.uid)
+  await setDoc(doc(db, 'users', firebaseUser.value.uid ), {
+    'checkedDate' : events.value,
     'readPlan' : readPlan.value,
+    'fontSize' : fontSize.value,
   })
 };
-const registerUserInfo = (plan:number) => {
-  new Promise((resolve, reject) => {
-    resolve(console.log('registerUserInfo'));
+const registerUserInfo = () => {
+  new Promise((resolve) => {
+    resolve(setUserInfo());
   })
-    .then(val => setReadPlan(readPlan.value))
-    .catch(e => console.log(e))
+    .then(() => console.log('registerUserInfo'))
+    .catch(e => console.log('registerUserInfo errr -', e))
 }
-const init = () => {
-  new Promise((resolve, reject) => {
-    resolve(console.log('init readthru'));
-  })
-    .then(val => getUserInfo())
-    .catch(e => console.log(e))
+const updateEvents = (events:string[]) => {
+  console.log('updateEvents  ', events)
 }
-watchEffect(() => registerUserInfo(readPlan.value))
-onMounted(() => init());
+const checkInit = ref(false);
+
+watchEffect(() => {
+  if(firebaseUser.value !== null)    
+  {
+    if(!checkInit.value){
+      new Promise((resolve) => {
+          resolve(console.log('init readthru'));
+      })
+        .then(() => getUserInfo())
+        .catch(e => console.log(e))
+    }
+    else
+      registerUserInfo();
+  }
+})
+
+
+
 </script>
 <template>
-  <q-page padding>
-    <div id='title'>
+  <q-page padding v-if="firebaseUser" >
+    <div id='title' class="q-pa-md">
+      <q-icon name='book' size='lg'></q-icon>
       <div class='q-pb-md text-h6'>하나통독</div>
     </div>
     <div id='menu'>
@@ -148,6 +145,15 @@ onMounted(() => init());
           inline
         />
         </q-card-section>
+        <q-card-section  style="display:flex;">
+          <span>글씨 크기</span>
+          <q-slider
+            style="width:15vw;"
+            v-model="fontSize"
+            :min="1"
+            :max="50"
+          />
+        </q-card-section>
       </q-card>
     </q-dialog>
 
@@ -157,7 +163,7 @@ onMounted(() => init());
         <span :key="date" class="q-px-lg">{{dateStr()}}</span>
         <q-btn @click="onNextDate()"  label=">"  round color="primary"  align="around"/>
       </div>
-      <read-page id='script' :date="date"  @test="update"></read-page>
+      <read-page id='script' :date="date" :checked="events" :fontSize="fontSize"  @test="update" @updateEvents="updateEvents"></read-page>
   </q-page>
 </template>
 

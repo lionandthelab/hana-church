@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import StreamListItem from 'src/components/StreamListItem.vue';
-import PlayListItem_m from 'src/components/PlayListItem_m.vue';
 import { db } from 'boot/firebase';
 import {
   collection,
@@ -11,8 +9,6 @@ import {
   where,
 } from 'firebase/firestore';
 import { onMounted, ref, defineProps } from 'vue';
-import { resolveTxt } from 'dns';
-import { rejects } from 'assert';
 
 const props = defineProps<{
   tag: string;
@@ -35,24 +31,6 @@ const getData = async () => {
   console.log('items ', items.value[0]);
 };
 
-const test = function() {
-  let arr = [];
-  for(var i = 0 ; i < items.value.length ; i = i+4){
-    try{
-      let unit = [];
-      items.value[i] != undefined?unit.push(items.value[i]):console.log('empty');
-      items.value[i+1] != undefined?unit.push(items.value[i+1]):console.log('empty');
-      items.value[i+2] != undefined?unit.push(items.value[i+2]):console.log('empty');
-      items.value[i+3] != undefined?unit.push(items.value[i+3]):console.log('empty');
-      arr.push(unit);
-    }
-    catch(e){
-      console.log('catch - ', e);
-    }
-  }
-  console.log('arr - ' ,arr)
-  return arr;
-}
 onMounted(() => getData());
 
 </script>

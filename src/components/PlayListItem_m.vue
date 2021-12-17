@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { defineProps, computed, ref } from 'vue';
 import { QueryDocumentSnapshot, DocumentData } from 'firebase/firestore';
-import {  fasVideo, fasPlay, fasList } from '@quasar/extras/fontawesome-v5';
+import { fasList } from '@quasar/extras/fontawesome-v5';
 const props = defineProps<{
   item: QueryDocumentSnapshot<DocumentData>;
   len:number;
