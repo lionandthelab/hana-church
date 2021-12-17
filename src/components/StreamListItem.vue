@@ -2,8 +2,8 @@
 import { defineProps, computed } from 'vue';
 import { QueryDocumentSnapshot, DocumentData } from 'firebase/firestore';
 
-import { useQuasar } from 'quasar';
-const $q = useQuasar();
+//import { useQuasar } from 'quasar';
+//const $q = useQuasar();
 const props = defineProps<{
   item: QueryDocumentSnapshot<DocumentData>;
   imgStyle: string;

@@ -3,7 +3,7 @@ import {} from 'vue';
 import { auth } from 'boot/firebase';
 import { signInWithPopup, GoogleAuthProvider, signOut } from 'firebase/auth';
 import { firebaseUser, useAuth } from 'src/composables/useAuth';
-import { useQuasar } from 'quasar';
+//import { useQuasar } from 'quasar';
 
 useAuth();
 

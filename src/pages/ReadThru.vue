@@ -17,12 +17,16 @@ const dialog = ref(false);
 const date = ref('2021/12/15');
 const proxyDate = ref('2021/12/15')
 const events = ref<string[]>();
-const updateProxy = function() {
+
+//date
+const updateProxy = function() { 
   proxyDate.value = date.value;
 }
 const save = function() {
   date.value = proxyDate.value;
 }
+//date
+//selected date
 const dateStr = function() {
   let str = date.value.split('/');
   return str[0] + '년 ' + str[1] + '월 ' + str[2] + '일';
@@ -39,15 +43,8 @@ const onNextDate = function () {
   date.value = day.getFullYear().toString() + '/' + (day.getMonth()+1).toString() + '/' +day.getDate().toString();
   proxyDate.value = date.value;
 }
-const update = (dd) => {
-  console.log('update', dd);
-  events.value = dd; 
-  console.log('events.value ' , events.value);
-}
-const selectPlan = () => {
-  console.log('selectPlan ');
-}
-
+//selected date
+//firebase functions 
 const item = ref<QueryDocumentSnapshot<DocumentData>>();
 const getUserInfo = async () => {
   if(firebaseUser.value !== null){
@@ -81,15 +78,13 @@ const registerUserInfo = () => {
     .then(() => console.log('registerUserInfo'))
     .catch(e => console.log('registerUserInfo errr -', e))
 }
-const updateEvents = (events:string[]) => {
-  console.log('updateEvents  ', events)
-}
-const checkInit = ref(false);
-
+//firebase functions
+//update data & initialize
+const checkInit = ref(false); //check firebase data set
 watchEffect(() => {
   if(firebaseUser.value !== null)    
   {
-    if(!checkInit.value){
+    if(!checkInit.value){ //initialize 
       new Promise((resolve) => {
           resolve(console.log('init readthru'));
       })
@@ -100,9 +95,7 @@ watchEffect(() => {
       registerUserInfo();
   }
 })
-
-
-
+//update data 
 </script>
 <template>
   <q-page padding v-if="firebaseUser" >
@@ -137,7 +130,6 @@ watchEffect(() => {
         <q-card-section class="row items-center q-gutter-sm">
           <span>통독 플랜</span>
         <q-option-group
-          @change="selectPlan"
           name="preferred_genre"
           v-model="readPlan"
           :options="options"
@@ -151,7 +143,7 @@ watchEffect(() => {
             style="width:15vw;"
             v-model="fontSize"
             :min="1"
-            :max="50"
+            :max="100"
           />
         </q-card-section>
       </q-card>
@@ -163,7 +155,7 @@ watchEffect(() => {
         <span :key="date" class="q-px-lg">{{dateStr()}}</span>
         <q-btn @click="onNextDate()"  label=">"  round color="primary"  align="around"/>
       </div>
-      <read-page id='script' :date="date" :checked="events" :fontSize="fontSize"  @test="update" @updateEvents="updateEvents"></read-page>
+      <read-page id='script' :date="date" :checked="events" :fontSize="fontSize" ></read-page>
   </q-page>
 </template>
 
