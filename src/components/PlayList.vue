@@ -41,6 +41,7 @@ onMounted(() => getData());
 </script>
 <template>
   <div class="q-pa-md">
+
     <!-- <q-carousel
       v-model="slide"
       transition-prev="slide-right"

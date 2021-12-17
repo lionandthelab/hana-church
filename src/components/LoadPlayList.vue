@@ -60,7 +60,6 @@ const registerStreamList = async () => {
     icon: 'announcement',
   });
 };
-
 const registerPlaylistItems = async () => {
   console.log('playlistId: ', playlistId.value);
 

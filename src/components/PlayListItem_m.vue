@@ -3,7 +3,6 @@ import { defineProps, computed, ref } from 'vue';
 import { QueryDocumentSnapshot, DocumentData } from 'firebase/firestore';
 import { StreamList } from 'components/models';
 import { fasList } from '@quasar/extras/fontawesome-v5';
-
 const props = defineProps<{
   item: QueryDocumentSnapshot<DocumentData>;
   len: number;
