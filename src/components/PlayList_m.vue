@@ -1,8 +1,6 @@
 <script setup lang="ts">
-<<<<<<< HEAD
-=======
+
 import PlayListItem_m from 'src/components/PlayListItem_m.vue';
->>>>>>> 892f2d6eeafa1743ef7a49189c5a1e9fcccd8bfa
 import { db } from 'boot/firebase';
 import {
   collection,

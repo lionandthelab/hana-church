@@ -1,13 +1,9 @@
 <script setup lang="ts">
 import { defineProps, computed } from 'vue';
 import { QueryDocumentSnapshot, DocumentData } from 'firebase/firestore';
-<<<<<<< HEAD
-import {  fasList } from '@quasar/extras/fontawesome-v5';
-=======
+
 import { useQuasar } from 'quasar';
 const $q = useQuasar();
->>>>>>> 892f2d6eeafa1743ef7a49189c5a1e9fcccd8bfa
-
 const props = defineProps<{
   item: QueryDocumentSnapshot<DocumentData>;
   imgStyle: string;

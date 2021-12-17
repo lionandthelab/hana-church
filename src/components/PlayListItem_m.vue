@@ -1,24 +1,14 @@
 <script setup lang="ts">
 import { defineProps, computed, ref } from 'vue';
 import { QueryDocumentSnapshot, DocumentData } from 'firebase/firestore';
-<<<<<<< HEAD
-import { fasList } from '@quasar/extras/fontawesome-v5';
-=======
 import { StreamList } from 'components/models';
 import { fasList } from '@quasar/extras/fontawesome-v5';
-
->>>>>>> 892f2d6eeafa1743ef7a49189c5a1e9fcccd8bfa
 const props = defineProps<{
   item: QueryDocumentSnapshot<DocumentData>;
   len: number;
 }>();
 const splitterModel = ref(50);
-<<<<<<< HEAD
-const stream = computed(() => props.item.data());
-// const streamTo = computed(() => `/messagelist/${props.item.data().playlistName}`);
-=======
 const stream: StreamList = computed(() => props.item.data());
->>>>>>> 892f2d6eeafa1743ef7a49189c5a1e9fcccd8bfa
 </script>
 <template>
   <div min-width="200px">

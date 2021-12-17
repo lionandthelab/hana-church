@@ -41,15 +41,7 @@ onMounted(() => getData());
 </script>
 <template>
   <div class="q-pa-md">
-<<<<<<< HEAD
-    <q-toolbar-title>{{props.tag}} 재생목록</q-toolbar-title>
-    <q-scroll-area style="height: 18vw; width:100%; ">
-    <q-div class='row fit justify-start items-center q-gutter-xs q-col-gutter no-wrap'>
-          <div id='list' v-for="(unit, i ) in items" :key='i' class="q-pr-md"  >
-            <StreamListItem style="width: 20vw"  :item="unit" />
-          </div>
-    </q-div>
-=======
+
     <!-- <q-carousel
       v-model="slide"
       transition-prev="slide-right"
@@ -88,7 +80,6 @@ onMounted(() => getData());
           :key="key"
         />
       </q-div>
->>>>>>> 892f2d6eeafa1743ef7a49189c5a1e9fcccd8bfa
     </q-scroll-area>
   </div>
 </template>
