@@ -20,11 +20,14 @@ const items = ref<QueryDocumentSnapshot<DocumentData>[]>([]);
 const getData = async () => {
   let q;
   if (props.tag) {
-    q = query(collection(db, 'streams'), where('playlistName', '==', props.tag));
+    q = query(
+      collection(db, 'streams'),
+      where('playlistName', '==', props.tag)
+    );
   } else {
     q = query(collection(db, 'streams'));
   }
-  console.log('props.tag -' , props.tag)
+  console.log('props.tag -', props.tag);
   const querySnapshot = await getDocs(q);
   items.value = querySnapshot.docs;
 
@@ -37,8 +40,7 @@ onMounted(() => getData());
 onUpdated(() => getData());
 </script>
 <template>
-  <q-page class='q-pa-md'>
-
+  <q-page class="q-pa-md">
     <q-div>
       <div class="q-pb-md" v-for="(item, i) in items" :key="i">
         <StreamListItem :item="item" />
@@ -48,9 +50,8 @@ onUpdated(() => getData());
 </template>
 
 <style>
-#head{
-  background: #3CD3AD;
+#head {
+  background: #3cd3ad;
   text-align: center;
-
 }
 </style>

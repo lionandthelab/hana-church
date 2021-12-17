@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import ReadPage from 'src/components/ReadPage.vue';
+import ReadThruView from 'src/components/ReadThruView.vue';
 import { firebaseUser } from 'src/composables/useAuth';
 import { ref, watchEffect } from 'vue';
 import { db } from 'boot/firebase';
@@ -10,9 +10,10 @@ import {
   QueryDocumentSnapshot,
   DocumentData,
 } from 'firebase/firestore';
+import { fasBook } from '@quasar/extras/fontawesome-v5';
 
 const readPlan = ref();
-const fontSize = ref();
+const fontSize = ref(20);
 const options = [
   { label: '1독', value: 1 },
   { label: '2독', value: 2 },
@@ -114,108 +115,98 @@ watchEffect(() => {
     } else registerUserInfo();
   }
 });
-//update data
 </script>
 <template>
-  <q-page padding v-if="firebaseUser">
-    <div id="title" class="q-pa-md">
-      <q-icon name="book" size="lg"></q-icon>
-      <div class="q-pb-md text-h6">하나통독</div>
-    </div>
-    <div id="menu">
-      <div id="date" class="">
-        <q-btn icon="event" round color="primary">
-          <q-popup-proxy
-            @before-show="updateProxy()"
-            cover
-            transition-show="scale"
-            transition-hide="scale"
-          >
-            <q-date v-model="proxyDate" :events="events">
-              <div class="row items-center justify-end q-gutter-sm">
-                <q-btn label="Cancel" color="primary" flat v-close-popup />
-                <q-btn
-                  label="OK"
-                  color="primary"
-                  flat
-                  @click="save()"
-                  v-close-popup
-                />
-              </div>
-            </q-date>
-          </q-popup-proxy>
-        </q-btn>
-      </div>
-
-      <q-btn round icon="settings" color="primary" @click="dialog = true" />
+  <q-page-container style="padding: 0px">
+    <q-page style="padding-top: 50px; width: 100%; height: 100vh; overflow">
+      <q-page-sticky expand position="top">
+        <q-toolbar class="bg-primary text-white">
+          <q-avatar>
+            <q-icon :name="fasBook" />
+          </q-avatar>
+          <q-toolbar-title class="q-pa-xs"> 하나통독 </q-toolbar-title>
+          <q-space />
+          <q-btn flat icon="event" round>
+            <q-popup-proxy
+              @before-show="updateProxy()"
+              cover
+              transition-show="scale"
+              transition-hide="scale"
+            >
+              <q-date v-model="proxyDate" :events="events">
+                <div class="row items-center justify-end q-gutter-sm">
+                  <q-btn label="Cancel" color="primary" flat v-close-popup />
+                  <q-btn
+                    label="OK"
+                    color="primary"
+                    flat
+                    @click="save()"
+                    v-close-popup
+                  />
+                </div>
+              </q-date>
+            </q-popup-proxy>
+          </q-btn>
+          <q-btn flat round icon="settings" @click="dialog = true" />
+        </q-toolbar>
+      </q-page-sticky>
       <q-dialog v-model="dialog">
         <q-card>
-          <q-card-section style="display: flex; border-bottom: 1px solid black">
-            <div class="text-h6">설정</div>
+          <q-card-section
+            style="padding: 10px; display: flex; border-bottom: 1px solid grey"
+          >
+            <div class="full-width text-h6" style="text-align: center">
+              설정
+            </div>
             <q-btn
+              flat
               v-close-popup
               square
               icon="close"
-              color="primary"
               padding="xs"
               style="margin-left: auto"
             />
           </q-card-section>
 
-          <q-card-section class="row items-center q-gutter-sm">
-            <span>통독 플랜</span>
-            <q-option-group
-              name="preferred_genre"
-              v-model="readPlan"
-              :options="options"
-              color="primary"
-              inline
-            />
+          <q-card-section class="items-center">
+            <div class="col-3 text-body1">통독 플랜</div>
+            <div class="col-9 q-px-md justify-center">
+              <q-option-group
+                name="preferred_genre"
+                v-model="readPlan"
+                :options="options"
+                color="primary"
+                inline
+              />
+            </div>
           </q-card-section>
-          <q-card-section style="display: flex">
-            <span>글씨 크기</span>
-            <q-slider
-              style="width: 15vw"
-              v-model="fontSize"
-              :min="1"
-              :max="100"
-            />
+          <q-card-section class="items-center">
+            <div class="col-3 text-body1">글씨 크기</div>
+            <div class="col-9 q-px-md full-width justify-center">
+              <q-slider v-model="fontSize" :min="1" :max="100" />
+            </div>
           </q-card-section>
         </q-card>
       </q-dialog>
-    </div>
-    <div id="showDate">
-      <q-btn
-        @click="onPrevDate()"
-        round
-        color="primary"
-        label="<"
-        align="around"
-      />
-      <span :key="date" class="q-px-lg">{{ dateStr() }}</span>
-      <q-btn
-        @click="onNextDate()"
-        label=">"
-        round
-        color="primary"
-        align="around"
-      />
-    </div>
-    <read-page
-      id="script"
-      :date="date"
-      :checked="events"
-      :fontSize="fontSize"
-    ></read-page>
-  </q-page>
+      <div
+        class="row full-width justify-center"
+        :class="$q.dark.isActive ? 'bg-dark' : 'bg-white'"
+      >
+        <q-btn @click="onPrevDate()" flat color="grey" label="<" size="xl" />
+        <div
+          :key="date"
+          class="q-pa-lg text-primary text-weight-bolder text-h5"
+        >
+          {{ dateStr() }}
+        </div>
+        <q-btn @click="onNextDate()" flat color="grey" label=">" size="xl" />
+      </div>
+      <ReadThruView :date="date" :checked="events" :fontSize="fontSize" />
+    </q-page>
+  </q-page-container>
 </template>
 
 <style>
-#showDate {
-  display: table;
-  margin-left: auto;
-  margin-right: auto;
-}
 #title {
   display: flex;
 }
@@ -227,7 +218,5 @@ watchEffect(() => {
 }
 #date {
   margin-left: auto;
-}
-#script {
 }
 </style>

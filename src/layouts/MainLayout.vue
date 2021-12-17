@@ -55,7 +55,7 @@ const links4 = [
 </script>
 <template>
   <q-layout view="hHr Lpr lFf" class="dark">
-    <q-header bordered>
+    <q-header reveal bordered>
       <q-toolbar
         class="text-primary q-pa-xs"
         :class="$q.dark.isActive ? 'bg-dark' : 'bg-white'"

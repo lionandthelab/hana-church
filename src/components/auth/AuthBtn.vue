@@ -17,7 +17,6 @@ const provider = new GoogleAuthProvider();
           firebaseUser.photoURL || 'https://cdn.quasar.dev/img/boy-avatar.png'
         "
       />
-
       <q-menu>
         <q-card>
           <q-list>

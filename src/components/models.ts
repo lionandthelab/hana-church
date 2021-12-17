@@ -51,7 +51,6 @@ export interface PlayListItem {
     privacyStatus: string;
   };
 }
-
 export interface PlaylistItemListResponse {
   kind: string;
   etag: string;
@@ -62,4 +61,22 @@ export interface PlaylistItemListResponse {
     resultsPerPage: number;
   };
   items: PlayListItem[];
+}
+
+export interface Verse {
+  verse: number;
+  paragraph: string;
+  content: string;
+}
+
+export interface Comment {
+  notation: string;
+  content: string;
+}
+export interface Chapter {
+  notation: string;
+  bookId: number;
+  chapter: number;
+  verses: Verse[];
+  comments: Comment[];
 }
