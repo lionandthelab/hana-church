@@ -27,7 +27,7 @@ const getChapter = async (bookId: number, chapter: number): any => {
   const bookKey = getBookKey(bookId);
   var chapters = [];
   console.log(`bookKey: ${bookKey}`);
-  return fetch(`http://localhost:3000/${bookKey}`)
+  return fetch(`https://signal.lionandthelab.com/${bookKey}`)
     .then((response) => {
       return response.json();
     })
@@ -62,7 +62,7 @@ const getData = async () => {
 onMounted(() => getData());
 </script>
 <template>
-  <div>
+  <div v-if="chapter">
     <div class="q-pa-lg text-h5" :style="titleStyle()">
       {{ bookString }} {{ chapterString }}
     </div>
@@ -77,5 +77,6 @@ onMounted(() => getData());
     </div>
     <div>{{ chapter.comments }}</div>
   </div>
+  <div v-else>Loading {{ bookString }} {{ chapterString }}...</div>
 </template>
 <style></style>

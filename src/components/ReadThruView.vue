@@ -42,124 +42,19 @@ const onClickComplete = () => {
 const onChangeTab = function () {
   bookList.value = [
     {
-      title: '창세기1',
+      title: '창1',
       bookId: 0,
       chapter: 1,
-      verses: {
-        '1': '태초에 하나님이 천지를',
-        '2': '땅이 혼돈스..',
-        '3': '땅이 혼돈스..',
-        '4': '땅이 혼돈스..',
-        '5': '땅이 혼돈스..',
-        '6': '땅이 혼돈스..',
-        '7': '땅이 혼돈스..',
-        '8': '땅이 혼돈스..',
-        '9': '땅이 혼돈스..',
-        '2': '땅이 혼돈스..',
-        '2': '땅이 혼돈스..',
-        '2': '땅이 혼돈스..',
-        '2': '땅이 혼돈스..',
-        '2': '땅이 혼돈스..',
-        '2': '땅이 혼돈스..',
-        '2': '땅이 혼돈스..',
-        '2': '땅이 혼돈스..',
-        '2': '땅이 혼돈스..',
-        '2': '땅이 혼돈스..',
-        '2': '땅이 혼돈스..',
-        '2': '땅이 혼돈스..',
-        '2': '땅이 혼돈스..',
-        '2': '땅이 혼돈스..',
-      },
     },
     {
-      title: '창세기2',
-      bookId: 1,
+      title: '창2',
+      bookId: 0,
       chapter: 2,
-      verses: {
-        '1': '태초에 하나님이 천지를',
-        '2': '땅이 혼돈스..',
-      },
     },
     {
-      title: '창세기3',
-      bookId: 1,
+      title: '창3',
+      bookId: 0,
       chapter: 3,
-      verses: {
-        '1': '태초에 하나님이 천지를',
-        '2': '땅이 혼돈스..',
-      },
-    },
-    {
-      title: '창세기4',
-      bookId: 1,
-      chapter: 4,
-      verses: {
-        '1': '태초에 하나님이 천지를',
-        '2': '땅이 혼돈스..',
-      },
-    },
-    {
-      title: '창세기5',
-      bookId: 1,
-      chapter: 4,
-      verses: {
-        '1': '태초에 하나님이 천지를',
-        '2': '땅이 혼돈스..',
-      },
-    },
-    {
-      title: '창세기6',
-      bookId: 1,
-      chapter: 3,
-      verses: {
-        '1': '태초에 하나님이 천지를',
-        '2': '땅이 혼돈스..',
-      },
-    },
-    {
-      title: '창세기7',
-      bookId: 1,
-      chapter: 4,
-      verses: {
-        '1': '태초에 하나님이 천지를',
-        '2': '땅이 혼돈스..',
-      },
-    },
-    {
-      title: '창세기8',
-      bookId: 1,
-      chapter: 4,
-      verses: {
-        '1': '태초에 하나님이 천지를',
-        '2': '땅이 혼돈스..',
-      },
-    },
-    {
-      title: '창세기9',
-      bookId: 1,
-      chapter: 4,
-      verses: {
-        '1': '태초에 하나님이 천지를',
-        '2': '땅이 혼돈스..',
-      },
-    },
-    {
-      title: '창세기10',
-      bookId: 1,
-      chapter: 4,
-      verses: {
-        '1': '태초에 하나님이 천지를',
-        '2': '땅이 혼돈스..',
-      },
-    },
-    {
-      title: '창세기11',
-      bookId: 1,
-      chapter: 4,
-      verses: {
-        '1': '태초에 하나님이 천지를',
-        '2': '땅이 혼돈스..',
-      },
     },
   ];
   tab.value = 0;
@@ -192,10 +87,10 @@ onMounted(() => init());
     style="width: 100%; height: 100vh"
     :class="$q.dark.isActive ? 'bg-dark' : 'bg-white'"
   >
-    <div class="q-pa-md q-px-xl" :style="tabStyle()">
+    <div class="q-px-xl" :style="tabStyle()">
       <q-tabs
         v-model="tab"
-        class="text-grey q-px-xl"
+        class="text-grey q-px-xs"
         active-color="primary"
         indicator-color="primary"
         narrow-indicator
