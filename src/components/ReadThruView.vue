@@ -217,7 +217,11 @@ onMounted(() => init());
           :key="i"
           :name="i"
         >
-          <ChapterView :fontSize="fontSize" :chapter="book" />
+          <ChapterView
+            :fontSize="fontSize"
+            :bookId="book.bookId"
+            :chapter="book.chapter"
+          />
           <div
             v-if="i === bookList.length - 1"
             style="display: table; margin-left: auto"

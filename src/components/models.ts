@@ -64,8 +64,8 @@ export interface PlaylistItemListResponse {
 }
 
 export interface Verse {
-  verse: number;
-  paragraph: string;
+  index: number;
+  title: string;
   content: string;
 }
 
