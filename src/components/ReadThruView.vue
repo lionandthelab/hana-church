@@ -64,7 +64,7 @@ const onChangeTab = async () => {
 };
 
 // FIXME
-const getSchduleKeys = () => {
+const getScheduleKeys = () => {
   var scheduleKeys = [];
   const targetDate = new Date(props.date);
   const readPlan = props.readPlan;
@@ -82,8 +82,8 @@ const getSchduleKeys = () => {
     var _date = new Date(firstDayOfTargetDate);
     _date.setDate(_date.getDate() + diffFromFirstDay * readPlan + i);
     console.log(`_date: ${_date.toString()}`);
-    var month = _date.getMonth();
-    var day = _date.getDay();
+    var month = _date.getMonth() + 1;
+    var day = _date.getDate();
     console.log(`new key: ${month}/${day}`);
 
     scheduleKeys.push(`${month}/${day}`);
@@ -93,12 +93,8 @@ const getSchduleKeys = () => {
 };
 
 const getData = async () => {
-  let str: sting[] = props.date.split('/');
-  let month = parseInt(str[1]);
-  let day = parseInt(str[2]);
-
-  // const scheduleKeys: string[] = getSchduleKeys();
-  const scheduleKeys: string[] = [`${month}/${day}`];
+  const scheduleKeys: string[] = getScheduleKeys();
+  // const scheduleKeys: string[] = [`${month}/${day}`];
   schedules.value = [];
   return fetch('https://signal.lionandthelab.com/schedule')
     .then((response) => {

@@ -12,6 +12,15 @@ import {
 } from 'firebase/firestore';
 import { fasBook } from '@quasar/extras/fontawesome-v5';
 
+const makeDateString = function (date: Date) {
+  console.log(
+    `makeDateString ${date.getFullYear()}/${
+      date.getMonth() + 1
+    }/${date.getDate()}`
+  );
+  return `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`;
+};
+
 const readPlan = ref(1);
 const fontSize = ref(20);
 const options = [
@@ -20,7 +29,7 @@ const options = [
   { label: '3독', value: 3 },
 ];
 const dialog = ref(false);
-const date = ref('2021/12/15');
+const date = ref(makeDateString(new Date()));
 const proxyDate = ref('2021/12/15');
 const events = ref<string[]>();
 
