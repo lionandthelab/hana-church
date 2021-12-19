@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted, defineProps, computed } from 'vue';
 import { bookStringTableKr, bookStringTableEn } from 'components/strings';
+import { ChapterResponse } from 'components/models';
 
 const props = defineProps<{
   bookId: number;
@@ -23,9 +24,8 @@ function getChapterString(bookId: number, chapter: number): string {
   }
 }
 
-const getChapter = async (bookId: number, chapter: number): any => {
+const getChapter = async (bookId: number, chapter: number): Chapter => {
   const bookKey = getBookKey(bookId);
-  var chapters = [];
   console.log(`bookKey: ${bookKey}`);
   return fetch(`https://signal.lionandthelab.com/${bookKey}`)
     .then((response) => {
@@ -34,12 +34,12 @@ const getChapter = async (bookId: number, chapter: number): any => {
     .then((data) => {
       console.log('response: ', data);
 
-      return data[chapter];
+      return (data as ChapterResponse)[chapter];
     });
   // return bible[bookKey][`${chapter}`];
 };
 
-const chapter = ref();
+const chapter = ref<Chapter>();
 const titleFontSize = computed(() => props.fontSize * 1.3);
 const contentFontSize = computed(() => props.fontSize * 1.0);
 // const verses = computed(() => getVerses(props.bookId, props.chapter));

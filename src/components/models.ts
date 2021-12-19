@@ -74,9 +74,22 @@ export interface Comment {
   content: string;
 }
 export interface Chapter {
-  notation: string;
-  bookId: number;
-  chapter: number;
+  // notation: string;
+  // bookId: number;
+  // chapter: number;
   verses: Verse[];
   comments: Comment[];
+}
+
+export interface Schedule {
+  bookId: number;
+  chapter: number;
+}
+
+export interface ChapterResponse {
+  [chapterId: string]: Chapter;
+}
+
+export interface ScheduleResponse {
+  [chapterId: string]: Schedule[];
 }

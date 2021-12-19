@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { ref, onMounted, defineProps, watchEffect, computed } from 'vue';
 import ChapterView from 'src/components/ChapterView.vue';
+import { Schedule, ScheduleResponse } from 'components/models';
+import { bookStringTableKr } from 'components/strings';
 
 const props = defineProps<{
   date: string;
@@ -9,6 +11,7 @@ const props = defineProps<{
 }>();
 
 const checkedDate = ref(props.checked); //date list of readers
+
 //update date list of readers
 const setReadDate = (date: string) => {
   if (checkedDate.value.indexOf(date) < 0) {
@@ -21,6 +24,7 @@ const setReadDate = (date: string) => {
     console.log('set read date ', checkedDate.value);
   }
 };
+
 //update date list of readers
 //set check button's style by reader's status
 const setStyleBtn = () => {
@@ -30,36 +34,53 @@ const setStyleBtn = () => {
     return 'background-color:#3CD3AD';
   else return 'background-color:#FFFFFF';
 };
+
 //set check button's style by reader's status
 const tab = ref(0); //bible script tab
-const bookList = ref([]); //today's bible list
+const schedules = ref<Schedule[]>([]); //today's bible list
+
+function getNotationString(bookId: number, chapter: number): string {
+  if (bookId == 18) {
+    return `${bookStringTableKr[bookId]}${chapter}편`;
+  } else {
+    return `${bookStringTableKr[bookId]}${chapter}장`;
+  }
+  return;
+}
+
 //staus changed (read -> unread) or (unread -> read)
 const onClickComplete = () => {
   console.log('click ', props.date);
   setReadDate(props.date);
 };
+
 //test bible data
-const onChangeTab = function () {
-  bookList.value = [
-    {
-      title: '창1',
-      bookId: 0,
-      chapter: 1,
-    },
-    {
-      title: '창2',
-      bookId: 0,
-      chapter: 2,
-    },
-    {
-      title: '창3',
-      bookId: 0,
-      chapter: 3,
-    },
-  ];
+const onChangeTab = async () => {
+  await getData();
   tab.value = 0;
 };
-//test bible data
+
+const getData = async () => {
+  let str: sting[] = props.date.split('/');
+  let month = parseInt(str[1]);
+  let day = parseInt(str[2]);
+
+  const scheduleKey = `${month}/${day}`;
+  console.log(`scheduleKey: ${scheduleKey}`);
+  return fetch('https://signal.lionandthelab.com/schedule')
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      console.log(
+        'response[scheduleKey]: ',
+        (data as ScheduleResponse)[scheduleKey]
+      );
+
+      schedules.value = (data as ScheduleResponse)[scheduleKey];
+      console.log(`schedules: ${schedules.value[0].bookId}`);
+    });
+};
 
 const init = () => {
   new Promise((resolve) => {
@@ -96,10 +117,10 @@ onMounted(() => init());
         narrow-indicator
       >
         <q-tab
-          v-for="(book, i) in bookList"
+          v-for="(schedule, i) in schedules"
           :key="i"
           :name="i"
-          :label="book.title"
+          :label="getNotationString(schedule.bookId, schedule.chapter)"
         />
       </q-tabs>
     </div>
@@ -107,18 +128,18 @@ onMounted(() => init());
     <div class="q-pa-none">
       <q-tab-panels v-model="tab" animated>
         <q-tab-panel
-          style="height: 100vh"
-          v-for="(book, i) in bookList"
+          style="min-height: 100vh"
+          v-for="(schedule, i) in schedules"
           :key="i"
           :name="i"
         >
           <ChapterView
             :fontSize="fontSize"
-            :bookId="book.bookId"
-            :chapter="book.chapter"
+            :bookId="schedule.bookId"
+            :chapter="schedule.chapter"
           />
           <div
-            v-if="i === bookList.length - 1"
+            v-if="i === schedules.length - 1"
             style="display: table; margin-left: auto"
           >
             <q-page-sticky position="bottom-right" :offset="[18, 18]">
