@@ -8,6 +8,7 @@ import {
   fasBookmark,
   fasPen,
   fasDiceOne,
+  fasPrayingHands,
 } from '@quasar/extras/fontawesome-v5';
 import AuthBtn from 'components/auth/AuthBtn.vue';
 import { useQuasar } from 'quasar';
@@ -28,6 +29,7 @@ const links2 = [
   { icon: fasDiceOne, text: 'ONE VERSE', url: '/one-verse' },
 ];
 const links3 = [
+  { icon: fasPrayingHands, text: 'Q.T.', url: '/qt' },
   { icon: fasBook, text: '하나통독', url: '/read-thru' },
   { icon: fasGrinStars, text: '조이챈트', url: '/joy-chant' },
 ];

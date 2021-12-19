@@ -32,11 +32,16 @@ const getData = async () => {
 onMounted(() => getData());
 </script>
 <template>
-  <q-page style="width: 100%; max-height: 100vh">
-    <div class="q-pa-xl text-weight-bolder text-h4 justify-center">
-      <q-icon size="md" :name="fasDiceOne" />
-      ONE VERSE
-    </div>
+  <q-page style="padding-top: 50px; width: 100%; height: 100vh; overflow">
+    <q-page-sticky expand position="top">
+      <q-toolbar class="bg-primary text-white">
+        <q-avatar>
+          <q-icon :name="fasDiceOne" />
+        </q-avatar>
+        <q-toolbar-title class="q-pa-xs"> ONE VERSE </q-toolbar-title>
+        <q-space />
+      </q-toolbar>
+    </q-page-sticky>
     <div class="row q-pa-md">
       <StreamListItem
         class="q-pa-md col-xs-6 col-sm-4 col-lg-3 col-xl-2"

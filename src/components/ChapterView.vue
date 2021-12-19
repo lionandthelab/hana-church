@@ -36,13 +36,11 @@ const getChapter = async (bookId: number, chapter: number): Chapter => {
 
       return (data as ChapterResponse)[chapter];
     });
-  // return bible[bookKey][`${chapter}`];
 };
 
 const chapter = ref<Chapter>();
 const titleFontSize = computed(() => props.fontSize * 1.3);
 const contentFontSize = computed(() => props.fontSize * 1.0);
-// const verses = computed(() => getVerses(props.bookId, props.chapter));
 const bookString: string = computed(() => getBookString(props.bookId));
 const chapterString: string = computed(() =>
   getChapterString(props.bookId, props.chapter)

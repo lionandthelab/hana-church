@@ -40,36 +40,12 @@ const getData = async () => {
 onMounted(() => getData());
 </script>
 <template>
-  <div class="q-pa-md">
-
-    <!-- <q-carousel
-      v-model="slide"
-      transition-prev="slide-right"
-      transition-next="slide-left"
-      swipeable
-      animated
-      control-color="primary"
-      padding
-      arrows
-      class="bg-grey-1 shadow-2 rounded-borders"
-      height="18vw"
-    >
-    
-      <q-carousel-slide v-for="(units, i) in test()" :key='i' :name="i">
-        <div class="row fit justify-start items-center q-gutter-xs q-col-gutter no-wrap">
-          <div class="rounded-borders col full-height q-pa-md" v-for="(unit, i ) in units" :key='i' >
-            <StreamListItem style="width: 15vw"  :item="unit" />
-          </div>
-        </div>
-      </q-carousel-slide>
-
-    </q-carousel> -->
+  <div class="q-py-sm q-px-md">
     <q-toolbar-title></q-toolbar-title>
     <div class="q-pa-xs text-weight-bold text-h6 justify-center">
-      <!--<q-icon size="md" name="list" />-->
       # {{ props.tag }}
     </div>
-    <q-scroll-area class="q-pa-md" style="height: 270px; max-width: 100%">
+    <q-scroll-area style="height: 235px; max-width: 100%">
       <q-div class="row fit justify-start items-start q-gutter-xs no-wrap">
         <StreamListItem
           class="q-pa-xs"

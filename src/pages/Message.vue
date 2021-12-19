@@ -38,11 +38,11 @@ onUpdated(() => getData());
 </script>
 <template>
   <q-page style="width: 100%; max-height: 100vh">
-    <div v-for="(item, i) in items" :key="i">
+    <q-intersection v-for="(item, i) in items" :key="i" transition="scale">
       <PlayList
         :tag="item.data().playlistName"
         :key="item.data().playlistName"
       />
-    </div>
+    </q-intersection>
   </q-page>
 </template>
