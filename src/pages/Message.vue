@@ -9,6 +9,7 @@ import {
   DocumentData,
 } from 'firebase/firestore';
 import { onMounted, onUpdated, ref, defineProps } from 'vue';
+import { fasPlayCircle } from '@quasar/extras/fontawesome-v5';
 
 const props = defineProps<{
   tag: string;
@@ -37,7 +38,16 @@ onMounted(() => getData());
 onUpdated(() => getData());
 </script>
 <template>
-  <q-page style="width: 100%; max-height: 100vh">
+  <q-page style="padding-top: 66px; width: 100%; height: 100vh; overflow">
+    <q-page-sticky expand position="top" style="z-index: 999">
+      <q-toolbar class="bg-primary text-white" style="border: 1px solid">
+        <q-avatar>
+          <q-icon :name="fasPlayCircle" />
+        </q-avatar>
+        <q-toolbar-title class="q-pa-xs"> {{ props.tag }} </q-toolbar-title>
+        <q-space />
+      </q-toolbar>
+    </q-page-sticky>
     <q-intersection v-for="(item, i) in items" :key="i" transition="scale">
       <PlayList
         :tag="item.data().playlistName"

@@ -10,7 +10,9 @@ import {
 } from 'firebase/firestore';
 import { onMounted, onUpdated, ref } from 'vue';
 import StreamListItem from 'src/components/StreamListItem.vue';
-
+import { fasVideo } from '@quasar/extras/fontawesome-v5';
+import { useQuasar } from 'quasar';
+const $q = useQuasar();
 const items = ref<QueryDocumentSnapshot<DocumentData>[]>([]);
 const slide = ref(0);
 
@@ -38,8 +40,20 @@ onMounted(() => getData());
 onUpdated(() => getData());
 </script>
 <template>
-  <q-page style="width: 100%; max-height: 100vh">
-    <div class="q-pa-md">
+  <q-page
+    :class="$q.dark.isActive ? 'bg-dark' : 'bg-white'"
+    style="padding-top: 50px; width: 100%; height: 90vh"
+  >
+    <q-page-sticky expand position="top" style="z-index: 999">
+      <q-toolbar class="bg-primary text-white" style="border: 1px solid">
+        <q-avatar>
+          <q-icon :name="fasVideo" />
+        </q-avatar>
+        <q-toolbar-title class="q-pa-xs"> 예배 LIVE </q-toolbar-title>
+        <q-space />
+      </q-toolbar>
+    </q-page-sticky>
+    <div class="q-pa-none">
       <q-carousel
         v-model="slide"
         swipeable

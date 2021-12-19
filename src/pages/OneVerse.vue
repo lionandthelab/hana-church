@@ -33,8 +33,8 @@ onMounted(() => getData());
 </script>
 <template>
   <q-page style="padding-top: 50px; width: 100%; height: 100vh; overflow">
-    <q-page-sticky expand position="top">
-      <q-toolbar class="bg-primary text-white">
+    <q-page-sticky expand position="top" style="z-index: 999">
+      <q-toolbar class="bg-primary text-white" style="border: 1px solid">
         <q-avatar>
           <q-icon :name="fasDiceOne" />
         </q-avatar>

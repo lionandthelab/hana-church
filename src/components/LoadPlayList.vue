@@ -31,16 +31,23 @@ function api<T>(url: string): Promise<T> {
 }
 
 const registerStream = async (playlistItem: PlayListItem) => {
-  await setDoc(doc(db, 'streams', playlistItem.snippet.resourceId.videoId), {
-    title: playlistItem.snippet.title,
-    url: `https://www.youtube.com/embed/${playlistItem.snippet.resourceId.videoId}?rel=0`,
-    tag: tag.value,
-    preacher: preacher.value,
-    thumbnailUrl: playlistItem.snippet.thumbnails.high.url,
-    date: playlistItem.snippet.publishedAt,
-    playlistName: playlistName.value,
-    playlistId: playlistId.value,
-  });
+  await setDoc(
+    doc(
+      db,
+      'streams',
+      `${playlistItem.snippet.resourceId.videoId}_${playlistName.value}`
+    ),
+    {
+      title: playlistItem.snippet.title,
+      url: `https://www.youtube.com/embed/${playlistItem.snippet.resourceId.videoId}?rel=0`,
+      tag: tag.value,
+      preacher: preacher.value,
+      thumbnailUrl: playlistItem.snippet.thumbnails.high.url,
+      date: playlistItem.snippet.publishedAt,
+      playlistName: playlistName.value,
+      playlistId: playlistId.value,
+    }
+  );
   // clear();
   $q.notify({
     message: '등록되었습니다',

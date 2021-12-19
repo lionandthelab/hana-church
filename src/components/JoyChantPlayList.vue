@@ -12,29 +12,26 @@ import {
 import { onMounted, ref, defineProps } from 'vue';
 
 const props = defineProps<{
-  tag: string;
+  playlistName: string;
 }>();
 
 const items = ref<QueryDocumentSnapshot<DocumentData>[]>([]);
+
 const getData = async () => {
-  let q;
-  if (props.tag) {
-    q = query(
-      collection(db, 'streams'),
-      where('playlistName', '==', props.tag)
-    );
-  } else {
-    q = query(collection(db, 'streams'));
-  }
+  let q = query(
+    collection(db, 'streams'),
+    where('tag', '==', 'joy-chant'),
+    where('playlistName', '==', props.playlistName)
+  );
 
   const querySnapshot = await getDocs(q);
   items.value = querySnapshot.docs;
-
+  console.log('before', items.value);
   // sort by latest order
   items.value = items.value.sort(
     (a, b) => (a.data().date < b.data().date && 1) || -1
   );
-  console.log('[PlayList]', items.value[0].data());
+  console.log('after', items.value);
 };
 
 onMounted(() => getData());
@@ -42,7 +39,7 @@ onMounted(() => getData());
 <template>
   <div class="q-py-sm q-px-md">
     <div class="q-pa-xs text-weight-bold text-h6 justify-center">
-      # {{ props.tag }}
+      # {{ props.playlistName }}
     </div>
     <q-scroll-area style="height: 235px; max-width: 100%">
       <q-div class="row fit justify-start items-start q-gutter-xs no-wrap">
