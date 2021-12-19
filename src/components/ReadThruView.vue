@@ -6,9 +6,12 @@ import { bookStringTableKr } from 'components/strings';
 
 const props = defineProps<{
   date: string;
+  readPlan: number;
   checked: string[];
   fontSize: number;
 }>();
+
+const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
 
 const checkedDate = ref(props.checked); //date list of readers
 
@@ -60,24 +63,60 @@ const onChangeTab = async () => {
   tab.value = 0;
 };
 
+// FIXME
+const getSchduleKeys = () => {
+  var scheduleKeys = [];
+  const targetDate = new Date(props.date);
+  const readPlan = props.readPlan;
+  console.log(`targetDate: ${targetDate.toString()}`);
+
+  const firstDayOfTargetDate = new Date(targetDate.getFullYear(), 0, 1);
+
+  const diffFromFirstDay = Math.round(
+    Math.abs((targetDate - firstDayOfTargetDate) / oneDay)
+  );
+  console.log(`firstDayOfTargetDate: ${firstDayOfTargetDate.toString()} `);
+  console.log(`diffFromFirstDay: ${diffFromFirstDay * readPlan} `);
+
+  for (var i = 0; i < readPlan; i++) {
+    var _date = new Date(firstDayOfTargetDate);
+    _date.setDate(_date.getDate() + diffFromFirstDay * readPlan + i);
+    console.log(`_date: ${_date.toString()}`);
+    var month = _date.getMonth();
+    var day = _date.getDay();
+    console.log(`new key: ${month}/${day}`);
+
+    scheduleKeys.push(`${month}/${day}`);
+  }
+
+  return scheduleKeys;
+};
+
 const getData = async () => {
   let str: sting[] = props.date.split('/');
   let month = parseInt(str[1]);
   let day = parseInt(str[2]);
 
-  const scheduleKey = `${month}/${day}`;
-  console.log(`scheduleKey: ${scheduleKey}`);
+  // const scheduleKeys: string[] = getSchduleKeys();
+  const scheduleKeys: string[] = [`${month}/${day}`];
+  schedules.value = [];
   return fetch('https://signal.lionandthelab.com/schedule')
     .then((response) => {
       return response.json();
     })
     .then((data) => {
-      console.log(
-        'response[scheduleKey]: ',
-        (data as ScheduleResponse)[scheduleKey]
-      );
+      for (var i = 0; i < scheduleKeys.length; i++) {
+        console.log(`scheduleKeys: ${scheduleKeys[i]}`);
+        console.log(
+          'response[scheduleKey]: ',
+          (data as ScheduleResponse)[scheduleKeys[i]]
+        );
 
-      schedules.value = (data as ScheduleResponse)[scheduleKey];
+        schedules.value = schedules.value.concat(
+          (data as ScheduleResponse)[scheduleKeys[i]]
+        );
+        console.log(schedules.value);
+      }
       console.log(`schedules: ${schedules.value[0].bookId}`);
     });
 };

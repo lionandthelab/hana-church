@@ -12,7 +12,7 @@ import {
 } from 'firebase/firestore';
 import { fasBook } from '@quasar/extras/fontawesome-v5';
 
-const readPlan = ref();
+const readPlan = ref(1);
 const fontSize = ref(20);
 const options = [
   { label: '1독', value: 1 },
@@ -201,7 +201,12 @@ watchEffect(() => {
         </div>
         <q-btn @click="onNextDate()" flat color="grey" label=">" size="xl" />
       </div>
-      <ReadThruView :date="date" :checked="events" :fontSize="fontSize" />
+      <ReadThruView
+        :date="date"
+        :readPlan="readPlan"
+        :checked="events"
+        :fontSize="fontSize"
+      />
     </q-page>
   </q-page-container>
 </template>
