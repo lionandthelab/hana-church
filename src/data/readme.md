@@ -4,6 +4,6 @@
 npm install -g json-server
 
 #### run
-json-server --watch SAE.json -H 0.0.0.0 -p 4000
+json-server --watch database.json -H 0.0.0.0 -p 5000
 
---> modify url to fetch in code
+--> modify url to fetch in code (default: signal.lionandthelab.com)
