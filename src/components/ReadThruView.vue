@@ -96,7 +96,7 @@ const getData = async () => {
   const scheduleKeys: string[] = getScheduleKeys();
   // const scheduleKeys: string[] = [`${month}/${day}`];
   schedules.value = [];
-  return fetch('https://signal.lionandthelab.com/schedule')
+  return fetch('https://api.lionandthelab.club/schedule')
     .then((response) => {
       return response.json();
     })

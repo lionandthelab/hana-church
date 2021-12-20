@@ -32,7 +32,7 @@ const getChapter = async (
 ): Promise<Chapter> => {
   const bookKey = getBookKey(bookId);
   console.log(`bookKey: ${bookKey}`);
-  return fetch(`https://signal.lionandthelab.com/${bookKey}`)
+  return fetch(`https://api.lionandthelab.club/${bookKey}`)
     .then((response) => {
       return response.json();
     })
