@@ -11,6 +11,9 @@ import {
   DocumentData,
 } from 'firebase/firestore';
 import { fasBook } from '@quasar/extras/fontawesome-v5';
+import { voiceList, setVoice, tts } from 'src/composables/useTts';
+import { useQuasar } from 'quasar';
+const $q = useQuasar();
 
 const makeDateString = function (date: Date) {
   console.log(
@@ -149,7 +152,14 @@ watchEffect(() => {
                     label="OK"
                     color="primary"
                     flat
-                    @click="save()"
+                    @click="
+                      save();
+                      $q.notify({
+                        message: '달력에 표시되었습니다.',
+                        color: 'primary',
+                        icon: 'announcement',
+                      });
+                    "
                     v-close-popup
                   />
                 </div>
@@ -159,7 +169,7 @@ watchEffect(() => {
           <q-btn flat round icon="settings" @click="dialog = true" />
         </q-toolbar>
       </q-page-sticky>
-      <q-dialog v-model="dialog">
+      <q-dialog v-model="dialog" class="overflow">
         <q-card>
           <q-card-section
             style="padding: 10px; display: flex; border-bottom: 1px solid grey"
@@ -193,6 +203,49 @@ watchEffect(() => {
             <div class="col-3 text-body1">글씨 크기</div>
             <div class="col-9 q-px-md full-width justify-center">
               <q-slider v-model="fontSize" :min="1" :max="100" />
+            </div>
+          </q-card-section>
+          <q-card-section class="items-center">
+            <div class="col-3 text-body1">목소리 변경</div>
+            <div class="col-9 q-px-md full-width justify-center">
+              <div v-for="(voice, i) in voiceList" :key="i">
+                <div v-if="voice.lang == 'ko-KR'">
+                  <q-btn
+                    class="full-width items-start"
+                    flat
+                    @click="
+                      setVoice(i);
+                      $q.notify({
+                        message: '목소리가 변경되었습니다.',
+                        color: 'primary',
+                        icon: 'announcement',
+                      });
+                    "
+                  >
+                    <q-icon name="mdi-play" />
+                    <q-div>{{ voice.name }}</q-div>
+                  </q-btn>
+                </div>
+              </div>
+            </div>
+          </q-card-section>
+          <q-card-section class="items-center">
+            <div class="col-3 text-body1">읽기 속도 (배속)</div>
+            <div class="col-9 q-px-md full-width justify-center">
+              <q-item>
+                <q-item-section side> 0.5x </q-item-section>
+                <q-item-section>
+                  <q-slider
+                    v-model="tts.rate"
+                    :min="0.5"
+                    :max="2.0"
+                    :step="0.1"
+                    label
+                    label-always
+                  />
+                </q-item-section>
+                <q-item-section side> 2.0x </q-item-section>
+              </q-item>
             </div>
           </q-card-section>
         </q-card>

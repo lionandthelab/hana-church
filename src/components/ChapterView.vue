@@ -1,7 +1,9 @@
 <script setup lang="ts">
-import { ref, onMounted, defineProps, computed } from 'vue';
+import { ref, onMounted, onUpdated, defineProps, computed } from 'vue';
 import { bookStringTableKr, bookStringTableEn } from 'components/strings';
-import { ChapterResponse } from 'components/models';
+import { ChapterResponse, Chapter } from 'components/models';
+import { fasFileAudio } from '@quasar/extras/fontawesome-v5';
+import { useTts, speak } from 'src/composables/useTts';
 
 const props = defineProps<{
   bookId: number;
@@ -24,7 +26,10 @@ function getChapterString(bookId: number, chapter: number): string {
   }
 }
 
-const getChapter = async (bookId: number, chapter: number): Chapter => {
+const getChapter = async (
+  bookId: number,
+  chapter: number
+): Promise<Chapter> => {
   const bookKey = getBookKey(bookId);
   console.log(`bookKey: ${bookKey}`);
   return fetch(`https://signal.lionandthelab.com/${bookKey}`)
@@ -38,11 +43,12 @@ const getChapter = async (bookId: number, chapter: number): Chapter => {
     });
 };
 
+const verseTexts = ref<string[]>([]);
 const chapter = ref<Chapter>();
 const titleFontSize = computed(() => props.fontSize * 1.3);
 const contentFontSize = computed(() => props.fontSize * 1.0);
-const bookString: string = computed(() => getBookString(props.bookId));
-const chapterString: string = computed(() =>
+const bookString = computed(() => getBookString(props.bookId));
+const chapterString = computed(() =>
   getChapterString(props.bookId, props.chapter)
 );
 
@@ -55,14 +61,42 @@ const contentStyle = () => {
 
 const getData = async () => {
   chapter.value = await getChapter(props.bookId, props.chapter);
+
+  const verses = chapter.value.verses;
+  verseTexts.value.push(`${bookString.value} ${chapterString.value}}`);
+  var prevTitle = '';
+  verses.map((v) => {
+    if (v.title) {
+      if (prevTitle != v.title) {
+        verseTexts.value.push(v.title);
+      }
+      prevTitle = v.title;
+    }
+    verseTexts.value.push(v.content);
+  });
 };
 
 onMounted(() => getData());
+onUpdated(() => {
+  useTts();
+});
 </script>
 <template>
   <div v-if="chapter">
-    <div class="q-pa-lg text-h5" :style="titleStyle()">
-      {{ bookString }} {{ chapterString }}
+    <div
+      class="row q-pa-lg text-h5 items-center justify-center"
+      :style="titleStyle()"
+    >
+      <div class="col">
+        {{ bookString }} {{ chapterString }}
+        <q-btn
+          flat
+          color="primary"
+          :icon="fasFileAudio"
+          round
+          @click="speak(verseTexts)"
+        />
+      </div>
     </div>
     <div
       class="q-pa-md"
