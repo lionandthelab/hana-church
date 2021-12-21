@@ -23,8 +23,10 @@ const routes: RouteRecordRaw[] = [
   },
   {
     path: '/qt',
-    component: () => import('layouts/MainLayout.vue'),
-    children: [{ path: '', component: () => import('pages/QT.vue') }],
+    component: () => import('pages/QT.vue'),
+    beforeEnter() {
+      location.href = 'https://sum.su.or.kr:8888/bible/today';
+    },
   },
   {
     path: '/joy-chant',

@@ -12,9 +12,6 @@ import { fasPrayingHands } from '@quasar/extras/fontawesome-v5';
         <q-space />
       </q-toolbar>
     </q-page-sticky>
-    <iframe
-      style="border: 0px; width: 100%; height: 100vh"
-      src="https://sum.su.or.kr:8888/bible/today"
-    ></iframe>
+    <iframe style="border: 0px; width: 100%; height: 100vh" src=""></iframe>
   </q-page>
 </template>

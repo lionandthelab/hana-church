@@ -8,7 +8,7 @@ export default boot(({ app }) => {
     Notify.create({
       icon: 'mdi-alert',
       message,
-      timeout: 0,
+      timeout: 2,
       actions: [
         {
           label: '확인',
