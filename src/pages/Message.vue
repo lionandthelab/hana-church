@@ -12,15 +12,15 @@ import { onMounted, onUpdated, ref, defineProps } from 'vue';
 import { fasPlayCircle } from '@quasar/extras/fontawesome-v5';
 
 const props = defineProps<{
-  tag: string;
+  playlistName: string;
 }>();
 
 const items = ref<QueryDocumentSnapshot<DocumentData>[]>([]);
 
 const getData = async () => {
   let q;
-  if (props.tag) {
-    q = query(collection(db, props.tag));
+  if (props.playlistName) {
+    q = query(collection(db, props.playlistName));
   } else {
     q = query(collection(db, 'streams'));
   }
@@ -30,9 +30,9 @@ const getData = async () => {
 
   // sort by latest order
   items.value = items.value.sort(
-    (a, b) => (a.data().date < b.data().date && 1) || -1
+    (a, b) => (a.data().playlistId < b.data().playlistId && 1) || -1
   );
-  console.log('[Debug]', items.value[0]);
+  console.log('[Debug]', items.value);
 };
 onMounted(() => getData());
 onUpdated(() => getData());
@@ -44,15 +44,17 @@ onUpdated(() => getData());
         <q-avatar>
           <q-icon :name="fasPlayCircle" />
         </q-avatar>
-        <q-toolbar-title class="q-pa-xs"> {{ props.tag }} </q-toolbar-title>
+        <q-toolbar-title class="q-pa-xs">
+          {{ props.playlistName }}
+        </q-toolbar-title>
         <q-space />
       </q-toolbar>
     </q-page-sticky>
-    <q-div v-for="(item, i) in items" :key="i">
+    <div v-for="(item, i) in items" :key="i">
       <PlayList
-        :tag="item.data().playlistName"
-        :key="item.data().playlistName"
+        :playlistName="item.data().playlistName"
+        :key="item.data().playlistId"
       />
-    </q-div>
+    </div>
   </q-page>
 </template>

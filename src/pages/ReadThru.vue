@@ -223,7 +223,7 @@ watchEffect(() => {
                     "
                   >
                     <q-icon name="mdi-play" />
-                    <q-div>{{ voice.name }}</q-div>
+                    <div>{{ voice.name }}</div>
                   </q-btn>
                 </div>
               </div>

@@ -39,11 +39,11 @@ const routes: RouteRecordRaw[] = [
     children: [{ path: '', component: () => import('pages/ReadThru.vue') }],
   },
   {
-    path: '/message/:tag',
+    path: '/message/:playlistName',
     component: () => import('layouts/MainLayout.vue'),
     children: [
       {
-        path: '/message/:tag',
+        path: '/message/:playlistName',
         component: () => import('pages/Message.vue'),
         props: true,
       },
