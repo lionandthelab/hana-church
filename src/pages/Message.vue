@@ -48,11 +48,11 @@ onUpdated(() => getData());
         <q-space />
       </q-toolbar>
     </q-page-sticky>
-    <q-intersection v-for="(item, i) in items" :key="i" transition="scale">
+    <q-div v-for="(item, i) in items" :key="i">
       <PlayList
         :tag="item.data().playlistName"
         :key="item.data().playlistName"
       />
-    </q-intersection>
+    </q-div>
   </q-page>
 </template>

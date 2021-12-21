@@ -33,7 +33,7 @@ const options = [
 ];
 const dialog = ref(false);
 const date = ref(makeDateString(new Date()));
-const proxyDate = ref('2021/12/15');
+const proxyDate = ref(makeDateString(new Date()));
 const events = ref<string[]>();
 
 //date

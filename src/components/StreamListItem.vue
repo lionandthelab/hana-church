@@ -18,6 +18,7 @@ const streamTo = computed(() => `/Watch/${props.item.id}`);
       <q-card style="width: 100%" :style="props.imgStyle">
         <q-img
           :style="props.imgStyle"
+          loading="lazy"
           fit="cover"
           :src="stream.thumbnailUrl"
           :ratio="16 / 9"
