@@ -132,7 +132,10 @@ module.exports = configure(function (ctx) {
     // https://quasar.dev/quasar-cli/developing-pwa/configuring-pwa
     pwa: {
       workboxPluginMode: 'GenerateSW', // 'GenerateSW' or 'InjectManifest'
-      workboxOptions: {}, // only for GenerateSW
+      workboxOptions: {
+        skipWaiting: true,
+        clientsClaim: true,
+      }, // only for GenerateSW
 
       // for the custom service worker ONLY (/src-pwa/custom-service-worker.[js|ts])
       // if using workbox in InjectManifest mode
@@ -144,10 +147,10 @@ module.exports = configure(function (ctx) {
         name: '신촌하나교회',
         short_name: '신촌하나교회',
         description: '신촌하나교회',
-        display: 'standalone',
+        display: 'fullscreen',
         orientation: 'portrait',
         background_color: '#ffffff',
-        theme_color: '#027be3',
+        theme_color: '#3cd3ad',
         icons: [
           {
             src: 'icons/icon-128x128.png',
