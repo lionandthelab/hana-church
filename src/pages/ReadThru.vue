@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import ReadThruView from 'src/components/ReadThruView.vue';
 import { firebaseUser } from 'src/composables/useAuth';
-import { ref, watchEffect, onUpdated } from 'vue';
+import { ref, watchEffect, onUpdated, computed } from 'vue';
 import { db } from 'boot/firebase';
 import {
   setDoc,
@@ -112,7 +112,9 @@ const registerUserInfo = () => {
     .then(() => console.log('registerUserInfo'))
     .catch((e) => console.log('registerUserInfo errr -', e));
 };
-
+const updateEvents = (updatedEvent) => {
+  events.value = updatedEvent; 
+}
 //firebase functions
 //update data & initialize
 const checkInit = ref(false); //check firebase data set
@@ -128,6 +130,12 @@ watchEffect(() => {
     } else registerUserInfo();
   }
 });
+
+const refeshUserInput = computed(() => {
+  console.log('readPlan ', readPlan);
+  console.log('date ', date);
+  return readPlan.value.toString() + date.value;
+})
 
 onUpdated(() => updateProxy());
 </script>
@@ -267,11 +275,12 @@ onUpdated(() => updateProxy());
         <q-btn @click="onNextDate()" flat color="grey" label=">" size="xl" />
       </div>
       <ReadThruView
-        :key="date"
+        :key="refeshUserInput"
         :date="date"
         :readPlan="readPlan"
         :checked="events"
         :fontSize="fontSize"
+        @updateEvents="updateEvents"
       />
     </q-page>
   </q-page-container>
