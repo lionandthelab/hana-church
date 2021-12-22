@@ -267,6 +267,7 @@ onUpdated(() => updateProxy());
         <q-btn @click="onNextDate()" flat color="grey" label=">" size="xl" />
       </div>
       <ReadThruView
+        :key="date"
         :date="date"
         :readPlan="readPlan"
         :checked="events"
