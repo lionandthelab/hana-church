@@ -231,7 +231,7 @@ const links4 = [
 
         <q-separator class="q-mt-md q-mb-lg" />
 
-        <div class="q-px-md text-grey-9">
+        <!--<div class="q-px-md text-grey-9">
           <div class="row items-center q-gutter-x-sm q-gutter-y-xs">
             <a
               v-for="button in buttons1"
@@ -254,7 +254,7 @@ const links4 = [
               {{ button.text }}
             </a>
           </div>
-        </div>
+        </div>-->
         <q-space></q-space>
         <q-btn
           :icon="$q.dark.isActive ? 'mdi-brightness-7' : 'mdi-brightness-4'"

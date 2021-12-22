@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, defineProps, watchEffect, computed } from 'vue';
+import { ref, onMounted, defineProps, watchEffect, watch, computed } from 'vue';
 import ChapterView from 'src/components/ChapterView.vue';
 import { Schedule, ScheduleResponse } from 'components/models';
 import { bookStringTableKr } from 'components/strings';
@@ -57,12 +57,6 @@ const onClickComplete = () => {
   setReadDate(props.date);
 };
 
-//test bible data
-const onChangeTab = async () => {
-  await getData();
-  tab.value = 0;
-};
-
 // FIXME
 const getScheduleKeys = () => {
   var scheduleKeys = [];
@@ -96,7 +90,7 @@ const getData = async () => {
   const scheduleKeys: string[] = getScheduleKeys();
   // const scheduleKeys: string[] = [`${month}/${day}`];
   schedules.value = [];
-  return fetch('https://signal.lionandthelab.com/schedule')
+  return fetch('https://api.lionandthelab.club/schedule')
     .then((response) => {
       return response.json();
     })
@@ -117,18 +111,19 @@ const getData = async () => {
     });
 };
 
-const init = () => {
-  new Promise((resolve) => {
-    resolve(console.log('read page init ', props.checked));
-  })
-    .then(() => onChangeTab())
-    .catch((e) => console.log(e));
-};
-
 //check status
 watchEffect(() => {
   checkedDate.value = props.checked;
 });
+
+watch(
+  () => props.date,
+  (first, second) => {
+    if (first.value == second.value) {
+      tab.value = 0;
+    }
+  }
+);
 
 const tabFontSize = computed(() => props.fontSize * 0.8);
 
@@ -136,7 +131,9 @@ const tabStyle = () => {
   return `font-size: ${tabFontSize.value}px`;
 };
 
-onMounted(() => init());
+onMounted(async () => {
+  await getData();
+});
 </script>
 <template>
   <div
@@ -149,7 +146,10 @@ onMounted(() => init());
         class="text-grey q-px-xs"
         active-color="primary"
         indicator-color="primary"
+        no-caps
         narrow-indicator
+        outside-arrows
+        mobile-arrows
       >
         <q-tab
           v-for="(schedule, i) in schedules"
@@ -161,7 +161,7 @@ onMounted(() => init());
     </div>
 
     <div class="q-pa-none">
-      <q-tab-panels v-model="tab" animated>
+      <q-tab-panels v-model="tab" swipeable>
         <q-tab-panel
           style="min-height: 100vh"
           v-for="(schedule, i) in schedules"

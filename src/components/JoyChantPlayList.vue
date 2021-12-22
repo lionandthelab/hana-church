@@ -42,7 +42,7 @@ onMounted(() => getData());
       # {{ props.playlistName }}
     </div>
     <q-scroll-area style="height: 235px; max-width: 100%">
-      <q-div class="row fit justify-start items-start q-gutter-xs no-wrap">
+      <div class="row fit justify-start items-start q-gutter-xs no-wrap">
         <StreamListItem
           class="q-pa-xs"
           imgStyle="width: 200px; height: 112px;"
@@ -51,7 +51,7 @@ onMounted(() => getData());
           v-for="(item, key) in items"
           :key="key"
         />
-      </q-div>
+      </div>
     </q-scroll-area>
   </div>
 </template>

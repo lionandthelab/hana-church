@@ -18,13 +18,14 @@ const streamTo = computed(() => `/Watch/${props.item.id}`);
       <q-card style="width: 100%" :style="props.imgStyle">
         <q-img
           :style="props.imgStyle"
+          loading="lazy"
           fit="cover"
           :src="stream.thumbnailUrl"
           :ratio="16 / 9"
         />
       </q-card>
       <div class="column" :style="props.cardStyle">
-        <q-label
+        <label
           style="
             text-overflow: ellipsis;
             display: -webkit-box;
@@ -35,13 +36,13 @@ const streamTo = computed(() => `/Watch/${props.item.id}`);
           class="row q-pa-xs text-h5 text-weight-bolder text-body1"
         >
           {{ stream.title }}
-        </q-label>
-        <q-label class="row q-pl-sm text-caption text-weight-light">
+        </label>
+        <label class="row q-pl-sm text-caption text-weight-light">
           {{ stream.preacher }}
-        </q-label>
-        <q-label class="row q-pl-sm text-caption text-weight-light">
+        </label>
+        <label class="row q-pl-sm text-caption text-weight-light">
           {{ stream.tag }} • {{ stream.date.split('T')[0] }}
-        </q-label>
+        </label>
       </div>
     </div>
   </router-link>

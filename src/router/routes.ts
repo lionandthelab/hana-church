@@ -23,8 +23,10 @@ const routes: RouteRecordRaw[] = [
   },
   {
     path: '/qt',
-    component: () => import('layouts/MainLayout.vue'),
-    children: [{ path: '', component: () => import('pages/QT.vue') }],
+    component: () => import('pages/QT.vue'),
+    beforeEnter() {
+      location.href = 'https://sum.su.or.kr:8888/bible/today';
+    },
   },
   {
     path: '/joy-chant',
@@ -37,11 +39,11 @@ const routes: RouteRecordRaw[] = [
     children: [{ path: '', component: () => import('pages/ReadThru.vue') }],
   },
   {
-    path: '/message/:tag',
+    path: '/message/:playlistName',
     component: () => import('layouts/MainLayout.vue'),
     children: [
       {
-        path: '/message/:tag',
+        path: '/message/:playlistName',
         component: () => import('pages/Message.vue'),
         props: true,
       },
