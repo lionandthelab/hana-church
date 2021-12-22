@@ -192,7 +192,7 @@ watchEffect(() => {
           <q-card-section class="items-center">
             <div class="col-3 text-body1">글씨 크기</div>
             <div class="col-9 q-px-md full-width justify-center">
-              <q-slider v-model="fontSize" :min="1" :max="100" />
+              <q-slider v-model="fontSize" :min="1" :max="75" />
             </div>
           </q-card-section>
         </q-card>
