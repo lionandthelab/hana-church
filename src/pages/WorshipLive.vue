@@ -11,8 +11,6 @@ import {
 import { onMounted, onUpdated, ref } from 'vue';
 import StreamListItem from 'src/components/StreamListItem.vue';
 import { fasVideo } from '@quasar/extras/fontawesome-v5';
-import { useQuasar } from 'quasar';
-const $q = useQuasar();
 const items = ref<QueryDocumentSnapshot<DocumentData>[]>([]);
 const slide = ref(0);
 
@@ -40,10 +38,7 @@ onMounted(() => getData());
 onUpdated(() => getData());
 </script>
 <template>
-  <q-page
-    :class="$q.dark.isActive ? 'bg-dark' : 'bg-white'"
-    style="padding-top: 50px; width: 100%; height: 90vh"
-  >
+  <q-page style="padding-top: 50px; width: 100%; height: 90vh">
     <q-page-sticky expand position="top" style="z-index: 999">
       <q-toolbar class="bg-primary text-white" style="border: 1px solid">
         <q-avatar>
@@ -53,7 +48,7 @@ onUpdated(() => getData());
         <q-space />
       </q-toolbar>
     </q-page-sticky>
-    <div class="q-pa-none">
+    <div v-if="items.length > 0" class="q-pa-none">
       <q-carousel
         v-model="slide"
         swipeable
@@ -75,6 +70,9 @@ onUpdated(() => getData());
           <StreamListItem :item="item" imgStyle="width:711px; height:400px" />
         </q-carousel-slide>
       </q-carousel>
+    </div>
+    <div v-else class="q-pa-md text-h6 text-weight-bold">
+      <div>현재 진행중인 LIVE가 없습니다.</div>
     </div>
   </q-page>
 </template>

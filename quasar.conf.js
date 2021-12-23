@@ -145,8 +145,8 @@ module.exports = configure(function (ctx) {
 
       manifest: {
         name: '신촌하나교회',
-        short_name: '신촌하나교회',
-        description: '신촌하나교회',
+        short_name: '신촌하나',
+        description: '신촌하나교회 앱',
         display: 'fullscreen',
         orientation: 'portrait',
         background_color: '#ffffff',
@@ -209,7 +209,7 @@ module.exports = configure(function (ctx) {
       builder: {
         // https://www.electron.build/configuration/configuration
 
-        appId: 'hana-church',
+        appId: 'hanachurch',
       },
 
       // "chain" is a webpack-chain object https://github.com/neutrinojs/webpack-chain
