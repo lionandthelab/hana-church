@@ -46,7 +46,8 @@ const getChapter = async (
 const verseTexts = ref<string[]>([]);
 const chapter = ref<Chapter>();
 const titleFontSize = computed(() => props.fontSize * 1.3);
-const contentFontSize = computed(() => props.fontSize * 1.0);
+const paragraphFontSize = computed(() => props.fontSize * 1.1);
+const contentFontSize = computed(() => props.fontSize * 0.9);
 const bookString = computed(() => getBookString(props.bookId));
 const chapterString = computed(() =>
   getChapterString(props.bookId, props.chapter)
@@ -54,6 +55,9 @@ const chapterString = computed(() =>
 
 const titleStyle = () => {
   return `font-size: ${titleFontSize.value}px`;
+};
+const paragraphStyle = () => {
+  return `font-size: ${paragraphFontSize.value}px`;
 };
 const contentStyle = () => {
   return `font-size: ${contentFontSize.value}px`;
@@ -69,8 +73,10 @@ const getData = async () => {
     if (v.title) {
       if (prevTitle != v.title) {
         verseTexts.value.push(v.title);
+        prevTitle = v.title;
+      } else {
+        v.title = '';
       }
-      prevTitle = v.title;
     }
     verseTexts.value.push(v.content);
   });
@@ -84,7 +90,7 @@ onUpdated(() => {
 <template>
   <div v-if="chapter">
     <div
-      class="row q-pa-lg text-h5 items-center justify-center"
+      class="row q-pa-lg text-h5 text-weight-bolder items-center justify-center"
       :style="titleStyle()"
     >
       <div class="col">
@@ -99,16 +105,35 @@ onUpdated(() => {
       </div>
     </div>
     <div
-      class="q-pa-md"
+      class="q-px-lg text-align-justify"
       :style="contentStyle()"
       v-for="(verse, i) in chapter.verses"
       :key="i"
     >
-      <div v-if="i == 0">{{ verse.title }}</div>
-      <div>{{ verse.index }}. {{ verse.content }}</div>
+      <div
+        class="q-py-sm text-weight-bold"
+        :style="paragraphStyle()"
+        v-if="verse.title"
+      >
+        {{ verse.title }}
+      </div>
+      <div class="row q-py-sm items-center">
+        <div class="column col-1 items-start">
+          <div class="row text-weight-bolder">{{ verse.index }}</div>
+        </div>
+        <div class="col-11">{{ verse.content }}</div>
+      </div>
     </div>
-    <div>{{ chapter.comments }}</div>
+    <!-- <div v-if="chapter.comments.length > 0"> -->
+    <div
+      class="q-px-lg text-weight-light"
+      v-for="(comment, i) in chapter.comments"
+      :key="i"
+    >
+      {{ i }} {{ comment }}
+    </div>
   </div>
+  <!-- </div> -->
   <div v-else>Loading {{ bookString }} {{ chapterString }}...</div>
 </template>
 <style></style>

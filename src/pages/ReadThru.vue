@@ -12,8 +12,6 @@ import {
 } from 'firebase/firestore';
 import { fasBook } from '@quasar/extras/fontawesome-v5';
 import { voiceList, setVoice, tts } from 'src/composables/useTts';
-import { useQuasar } from 'quasar';
-const $q = useQuasar();
 
 const makeDateString = function (date: Date) {
   console.log(
@@ -34,7 +32,7 @@ const options = [
 const dialog = ref(false);
 const date = ref(makeDateString(new Date()));
 const proxyDate = ref(makeDateString(new Date()));
-const events = ref<string[]>();
+const events = ref<string[]>([]);
 
 //date
 const updateProxy = function () {
@@ -84,23 +82,27 @@ const onNextDate = function () {
 const item = ref<QueryDocumentSnapshot<DocumentData>>();
 const getUserInfo = async () => {
   if (firebaseUser.value !== null) {
-    console.log('firebaseUser.value.uid', firebaseUser.value.uid);
+    console.log(
+      'getUserInfo -- firebaseUser.value.uid',
+      firebaseUser.value.uid
+    );
     const ref = doc(db, 'users', firebaseUser.value.uid);
     item.value = await getDoc(ref);
     if (item.value.data() == undefined) {
     } else if (item.value.data().readPlan == undefined) {
     } else {
       readPlan.value = item.value.data().readPlan;
-      events.value = item.value.data().checkedDate;
+      events.value = item.value.data().checkedDates;
       fontSize.value = item.value.data().fontSize;
     }
     checkInit.value = true;
   }
 };
 const setUserInfo = async () => {
-  console.log(' setUserInfo firebaseUser.value.uid', firebaseUser.value.uid);
+  console.log('setUserInfo -- firebaseUser.value.uid', firebaseUser.value.uid);
+  console.log('events: ', events);
   await setDoc(doc(db, 'users', firebaseUser.value.uid), {
-    checkedDate: events.value,
+    checkedDates: events.value,
     readPlan: readPlan.value,
     fontSize: fontSize.value,
   });
@@ -113,8 +115,8 @@ const registerUserInfo = () => {
     .catch((e) => console.log('registerUserInfo errr -', e));
 };
 const updateEvents = (updatedEvent) => {
-  events.value = updatedEvent; 
-}
+  events.value = updatedEvent;
+};
 //firebase functions
 //update data & initialize
 const checkInit = ref(false); //check firebase data set
@@ -135,7 +137,7 @@ const refeshUserInput = computed(() => {
   console.log('readPlan ', readPlan);
   console.log('date ', date);
   return readPlan.value.toString() + date.value;
-})
+});
 
 onUpdated(() => updateProxy());
 </script>
@@ -163,14 +165,7 @@ onUpdated(() => updateProxy());
                     label="OK"
                     color="primary"
                     flat
-                    @click="
-                      save();
-                      $q.notify({
-                        message: '달력에 표시되었습니다.',
-                        color: 'primary',
-                        icon: 'announcement',
-                      });
-                    "
+                    @click="save()"
                     v-close-popup
                   />
                 </div>
@@ -216,7 +211,7 @@ onUpdated(() => updateProxy());
               <q-slider v-model="fontSize" :min="1" :max="75" />
             </div>
           </q-card-section>
-          <q-card-section class="items-center">
+          <q-card-section class="items-center" v-if="voiceList.length > 0">
             <div class="col-3 text-body1">목소리 변경</div>
             <div class="col-9 q-px-md full-width justify-center">
               <div v-for="(voice, i) in voiceList" :key="i">
@@ -278,7 +273,7 @@ onUpdated(() => updateProxy());
         :key="refeshUserInput"
         :date="date"
         :readPlan="readPlan"
-        :checked="events"
+        :checkedDates="events"
         :fontSize="fontSize"
         @updateEvents="updateEvents"
       />

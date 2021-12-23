@@ -1,42 +1,53 @@
 <script setup lang="ts">
-import { ref, onMounted, defineProps, watchEffect, watch, computed, defineEmits } from 'vue';
+import {
+  ref,
+  onMounted,
+  defineProps,
+  watchEffect,
+  watch,
+  computed,
+  defineEmits,
+} from 'vue';
 import ChapterView from 'src/components/ChapterView.vue';
 import { Schedule, ScheduleResponse } from 'components/models';
 import { bookStringTableKr } from 'components/strings';
+import { useQuasar } from 'quasar';
+const $q = useQuasar();
 
 const props = defineProps<{
   date: string;
   readPlan: number;
-  checked: string[];
+  checkedDates: string[];
   fontSize: number;
 }>();
 const emit = defineEmits<{
-  (e: 'updateEvents', value: string[]): void
-}>()
+  (e: 'updateEvents', value: string[]): void;
+}>();
 const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
 
-const checkedDate = ref(props.checked); //date list of readers
+const checkedDates = ref(props.checkedDates); //date list of readers
 
 //update date list of readers
 const setReadDate = (date: string) => {
-  if (checkedDate.value.indexOf(date) < 0) {
+  if (checkedDates.value.indexOf(date) < 0) {
     console.log('registered');
-    checkedDate.value.push(date);
+    checkedDates.value.push(date);
   } else {
     console.log('already registered');
-    let idx = checkedDate.value.indexOf(date);
-    checkedDate.value.splice(idx, 1);
-    console.log('set read date ', checkedDate.value);
+    let idx = checkedDates.value.indexOf(date);
+    checkedDates.value.splice(idx, 1);
+    console.log('set read date ', checkedDates.value);
   }
-  emit('updateEvents', checkedDate.value);
+  if (checkedDates.value === undefined) emit('updateEvents', []);
+  else emit('updateEvents', checkedDates.value);
 };
 
 //update date list of readers
 //set check button's style by reader's status
 const setStyleBtn = () => {
-  if (props.checked == undefined || props.date == undefined)
+  if (props.checkedDates === undefined || props.date === undefined)
     return 'background-color:#FFFFFF';
-  else if (props.checked.indexOf(props.date) > -1)
+  else if (props.checkedDates.indexOf(props.date) > -1)
     return 'background-color:#3CD3AD';
   else return 'background-color:#FFFFFF';
 };
@@ -58,6 +69,11 @@ function getNotationString(bookId: number, chapter: number): string {
 const onClickComplete = () => {
   console.log('click ', props.date);
   setReadDate(props.date);
+  $q.notify({
+    message: '달력에 표시되었습니다.',
+    color: 'primary',
+    icon: 'announcement',
+  });
 };
 
 // FIXME
@@ -116,7 +132,7 @@ const getData = async () => {
 
 //check status
 watchEffect(() => {
-  checkedDate.value = props.checked;
+  checkedDates.value = props.checkedDates;
 });
 
 watch(
@@ -180,6 +196,7 @@ onMounted(async () => {
             v-if="i === schedules.length - 1"
             style="display: table; margin-left: auto"
           >
+            <div class="q-pa-md"></div>
             <q-page-sticky position="bottom-right" :offset="[18, 18]">
               <q-btn
                 @click="onClickComplete()"
