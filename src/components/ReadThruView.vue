@@ -8,7 +8,7 @@ import {
   computed,
   defineEmits,
 } from 'vue';
-import { isSigned, firebaseUser } from 'src/composables/useAuth';
+import { isSigned } from 'src/composables/useAuth';
 
 import ChapterView from 'src/components/ChapterView.vue';
 import { Schedule, ScheduleResponse } from 'components/models';

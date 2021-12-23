@@ -26,9 +26,6 @@
     "auth": {
       "port": 9099
     },
-    "functions": {
-      "port": 5001
-    },
     "firestore": {
       "port": 8083
     },
@@ -46,6 +43,9 @@
     "template": "remoteconfig.template.json"
   }
 }
+// "functions": {
+//   "port": 5001
+// },
 // "pubsub": {
 //   "port": 8085
 // },
