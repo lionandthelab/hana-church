@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, defineProps, watchEffect, watch, computed } from 'vue';
+import { ref, onMounted, defineProps, watchEffect, watch, computed, defineEmits } from 'vue';
 import ChapterView from 'src/components/ChapterView.vue';
 import { Schedule, ScheduleResponse } from 'components/models';
 import { bookStringTableKr } from 'components/strings';
@@ -10,7 +10,9 @@ const props = defineProps<{
   checked: string[];
   fontSize: number;
 }>();
-
+const emit = defineEmits<{
+  (e: 'updateEvents', value: string[]): void
+}>()
 const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
 
 const checkedDate = ref(props.checked); //date list of readers
@@ -26,6 +28,7 @@ const setReadDate = (date: string) => {
     checkedDate.value.splice(idx, 1);
     console.log('set read date ', checkedDate.value);
   }
+  emit('updateEvents', checkedDate.value);
 };
 
 //update date list of readers
@@ -182,7 +185,6 @@ onMounted(async () => {
                 @click="onClickComplete()"
                 :style="setStyleBtn()"
                 round
-                color="primary"
                 icon="check"
               />
             </q-page-sticky>

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import ReadThruView from 'src/components/ReadThruView.vue';
 import { firebaseUser } from 'src/composables/useAuth';
-import { ref, watchEffect, onUpdated } from 'vue';
+import { ref, watchEffect, onUpdated, computed } from 'vue';
 import { db } from 'boot/firebase';
 import {
   setDoc,
@@ -112,7 +112,9 @@ const registerUserInfo = () => {
     .then(() => console.log('registerUserInfo'))
     .catch((e) => console.log('registerUserInfo errr -', e));
 };
-
+const updateEvents = (updatedEvent) => {
+  events.value = updatedEvent; 
+}
 //firebase functions
 //update data & initialize
 const checkInit = ref(false); //check firebase data set
@@ -128,6 +130,12 @@ watchEffect(() => {
     } else registerUserInfo();
   }
 });
+
+const refeshUserInput = computed(() => {
+  console.log('readPlan ', readPlan);
+  console.log('date ', date);
+  return readPlan.value.toString() + date.value;
+})
 
 onUpdated(() => updateProxy());
 </script>
@@ -205,7 +213,7 @@ onUpdated(() => updateProxy());
           <q-card-section class="items-center">
             <div class="col-3 text-body1">글씨 크기</div>
             <div class="col-9 q-px-md full-width justify-center">
-              <q-slider v-model="fontSize" :min="1" :max="100" />
+              <q-slider v-model="fontSize" :min="1" :max="75" />
             </div>
           </q-card-section>
           <q-card-section class="items-center">
@@ -267,10 +275,12 @@ onUpdated(() => updateProxy());
         <q-btn @click="onNextDate()" flat color="grey" label=">" size="xl" />
       </div>
       <ReadThruView
+        :key="refeshUserInput"
         :date="date"
         :readPlan="readPlan"
         :checked="events"
         :fontSize="fontSize"
+        @updateEvents="updateEvents"
       />
     </q-page>
   </q-page-container>
