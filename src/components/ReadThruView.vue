@@ -8,6 +8,8 @@ import {
   computed,
   defineEmits,
 } from 'vue';
+import { isSigned, firebaseUser } from 'src/composables/useAuth';
+
 import ChapterView from 'src/components/ChapterView.vue';
 import { Schedule, ScheduleResponse } from 'components/models';
 import { bookStringTableKr } from 'components/strings';
@@ -156,6 +158,7 @@ onMounted(async () => {
 </script>
 <template>
   <div
+    v-if="isSigned"
     style="width: 100%; height: 100vh"
     :class="$q.dark.isActive ? 'bg-dark' : 'bg-white'"
   >
@@ -208,6 +211,12 @@ onMounted(async () => {
           </div>
         </q-tab-panel>
       </q-tab-panels>
+    </div>
+  </div>
+  <div v-else class="q-pa-md text-h6 text-weight-bold">
+    <div>하나통독은 로그인을 하셔야 이용하실 수 있습니다.</div>
+    <div class="text-body2 text-weight-light">
+      (대한성서공회의 저작권 정책을 따릅니다.)
     </div>
   </div>
 </template>

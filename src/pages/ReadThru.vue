@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import ReadThruView from 'src/components/ReadThruView.vue';
-import { firebaseUser } from 'src/composables/useAuth';
+import { isSigned, firebaseUser } from 'src/composables/useAuth';
 import { ref, watchEffect, onUpdated, computed } from 'vue';
 import { db } from 'boot/firebase';
 import {
