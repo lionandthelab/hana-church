@@ -35,7 +35,7 @@ const links3 = [
 ];
 const links4 = [
   { icon: 'newspaper', text: '소식' },
-  { icon: 'people', text: '공동체' },
+  { icon: 'people', text: '공동체', url: '/community' },
   { icon: 'map', text: '오시는길' },
   { icon: 'help', text: '문의' },
 ];
@@ -217,10 +217,16 @@ const links4 = [
           header
           class="text-weight-bold text-uppercase text-justify"
         >
-          <q-icon name="mdi-tree-outline" /> 안내
+          <q-icon name="mdi-tree-outline" /> 안내 (임한이 작업중...)
         </q-item-label>
 
-        <q-item v-for="link in links4" :key="link.text" v-ripple clickable>
+        <q-item
+          v-for="link in links4"
+          :key="link.text"
+          v-ripple
+          clickable
+          :to="link.url"
+        >
           <q-item-section avatar>
             <q-icon color="grey" :name="link.icon" />
           </q-item-section>
