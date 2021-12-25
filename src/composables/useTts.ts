@@ -31,9 +31,7 @@ export const useTts = () => {
   window.speechSynthesis.cancel();
 
   tts.value = new SpeechSynthesisUtterance();
-  const voices = voiceList.value;
   tts.value.lang = 'ko-KR';
-  tts.value.voice = voices[12];
   tts.value.volume = 1; // From 0 to 1
   tts.value.rate = 1; // From 0.1 to 10
   tts.value.pitch = 1; // From 0 to 2
