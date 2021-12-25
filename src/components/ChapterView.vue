@@ -78,7 +78,9 @@ const getData = async () => {
         v.title = '';
       }
     }
-    verseTexts.value.push(v.content);
+    const _content = v.content.replace(/[0-9]+\)/g, '');
+
+    verseTexts.value.push(_content);
   });
 };
 
