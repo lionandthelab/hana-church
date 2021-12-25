@@ -22,6 +22,14 @@ const makeDateString = function (date: Date) {
   return `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`;
 };
 
+const myLocale = {
+  days: '일요일_월요일_화요일_수요일_목요일_금요일_토요일'.split('_'),
+  daysShort: '일_월_화_수_목_금_토'.split('_'),
+  months: '1월_2월_3월_4월_5월_6월_7월_8월_9월_10월_11월_12월'.split('_'),
+  monthsShort: '1월_2월_3월_4월_5월_6월_7월_8월_9월_10월_11월_12월'.split('_'),
+  firstDayOfWeek: 0,
+};
+
 const readPlan = ref(1);
 const fontSize = ref(20);
 const options = [
@@ -33,12 +41,23 @@ const dialog = ref(false);
 const date = ref(makeDateString(new Date()));
 const proxyDate = ref(makeDateString(new Date()));
 const events = ref<string[]>([]);
+const thisYearPercent = computed(() => {
+  let year = Number(date.value.split('/')[0]);
+  var thisYearDayCount = 0;
+  var thisYearCheckedCount = events.value.filter(function (e) {
+    return Number(e.split('/')[0]) == year;
+  }).length;
+  if (year % 4 == 0) thisYearDayCount = 366;
+  else thisYearDayCount = 365;
+
+  return ((thisYearCheckedCount / thisYearDayCount) * 100).toPrecision(2);
+});
 
 //date
 const updateProxy = function () {
   proxyDate.value = date.value;
 };
-const save = function () {
+const moveDate = function () {
   date.value = proxyDate.value;
 };
 //date
@@ -151,6 +170,10 @@ onUpdated(() => updateProxy());
           </q-avatar>
           <q-toolbar-title class="q-pa-xs"> 하나통독 </q-toolbar-title>
           <q-space />
+          <div class="text-weight-bolder text-yellow-5">
+            {{ thisYearPercent }}%
+          </div>
+          <!-- <q-btn to="/Stat/1" flat icon="person" round /> -->
           <q-btn flat icon="event" round>
             <q-popup-proxy
               @before-show="updateProxy()"
@@ -158,14 +181,21 @@ onUpdated(() => updateProxy());
               transition-show="scale"
               transition-hide="scale"
             >
-              <q-date v-model="proxyDate" :events="events">
+              <q-date
+                v-model="proxyDate"
+                :events="events"
+                event-color="primary"
+                :locale="myLocale"
+                landscape
+                today-btn
+              >
                 <div class="row items-center justify-end q-gutter-sm">
-                  <q-btn label="Cancel" color="primary" flat v-close-popup />
+                  <!-- <q-btn label="X" color="primary" flat v-close-popup /> -->
                   <q-btn
-                    label="OK"
+                    label="날짜 이동"
                     color="primary"
                     flat
-                    @click="save()"
+                    @click="moveDate()"
                     v-close-popup
                   />
                 </div>
