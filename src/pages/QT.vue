@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { fasPrayingHands } from '@quasar/extras/fontawesome-v5';
+import { openURL } from 'quasar';
 </script>
 <template>
   <q-page style="padding-top: 50px; width: 100%; height: 100vh; overflow">
@@ -12,6 +13,31 @@ import { fasPrayingHands } from '@quasar/extras/fontawesome-v5';
         <q-space />
       </q-toolbar>
     </q-page-sticky>
-    <iframe style="border: 0px; width: 100%; height: 100vh" src=""></iframe>
+    <div class="row items-center q-pa-md text-h6 text-weight-bold">
+      <q-btn
+        class="text-h6 text-weight-bold"
+        flat
+        icon="login"
+        label="매일성경 바로가기"
+        @click="
+          () => {
+            openURL(
+              'https://sum.su.or.kr:8888/bible/today',
+              null, // in this example we don't care about the rejectFn()
+
+              // this is the windowFeatures Object param:
+              {
+                noopener: true, // this is set by default for security purposes
+                // but it can be disabled if specified with a Boolean false value
+                menubar: true,
+                toolbar: true,
+                noreferrer: true,
+                // .....any other window features
+              }
+            );
+          }
+        "
+      />
+    </div>
   </q-page>
 </template>
