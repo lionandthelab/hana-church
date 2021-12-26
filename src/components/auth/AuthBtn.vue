@@ -56,6 +56,6 @@ const provider = new GoogleAuthProvider();
     </q-avatar>
   </q-btn>
   <q-btn flat v-else @click="signInWithPopup(auth, provider)" round>
-    <q-avatar icon="mdi-login" size="32px" />
+    <q-avatar icon="mdi-account-circle-outline" size="32px" />
   </q-btn>
 </template>

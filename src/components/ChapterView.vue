@@ -47,8 +47,8 @@ const verseTexts = ref<string[]>([]);
 const chapter = ref<Chapter>();
 const titleFontSize = computed(() => props.fontSize * 1.3);
 const paragraphFontSize = computed(() => props.fontSize * 1.1);
-const contentFontSize = computed(() => props.fontSize * 0.9);
-const commentFontSize = computed(() => props.fontSize * 0.7);
+const contentFontSize = computed(() => props.fontSize * 1.0);
+const commentFontSize = computed(() => props.fontSize * 0.8);
 const bookString = computed(() => getBookString(props.bookId));
 const chapterString = computed(() =>
   getChapterString(props.bookId, props.chapter)
@@ -117,21 +117,21 @@ onUpdated(() => {
       v-for="(verse, i) in chapter.verses"
       :key="i"
     >
-      <div
-        class="q-py-sm text-weight-bold"
-        :style="paragraphStyle()"
-        v-if="verse.title"
-      >
+      <div class="q-py-sm" :style="paragraphStyle()" v-if="verse.title">
         {{ verse.title }}
       </div>
       <div class="row q-py-sm items-center">
-        <div class="col-1 column q-pa-xs text-weight-bolder">
-          <div class="row justify-center">
-            {{ verse.index }}
+        <div class="col column q-pa-xs">
+          <div class="row justify-start">
+            <p>
+              <span class="q-pr-md text-weight-bolder">
+                {{ verse.index }}
+              </span>
+              <span>
+                {{ verse.content }}
+              </span>
+            </p>
           </div>
-        </div>
-        <div class="col items-start">
-          {{ verse.content }}
         </div>
       </div>
     </div>
