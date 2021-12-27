@@ -28,7 +28,7 @@ module.exports = configure(function (ctx) {
     // app boot file (/src/boot)
     // --> boot files are part of "main.js"
     // https://quasar.dev/quasar-cli/boot-files
-    boot: ['firebase', 'error'],
+    boot: ['firebase', 'error', 'permission'],
 
     // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css
     css: ['app.scss'],
@@ -146,11 +146,11 @@ module.exports = configure(function (ctx) {
 
       // for the custom service worker ONLY (/src-pwa/custom-service-worker.[js|ts])
       // if using workbox in InjectManifest mode
-      // chainWebpackCustomSW(chain) {
-      //   chain
-      //     .plugin('eslint-webpack-plugin')
-      //     .use(ESLintPlugin, [{ extensions: ['js'] }]);
-      // },
+      chainWebpackCustomSW(chain) {
+        // chain
+        //   .plugin('eslint-webpack-plugin')
+        //   .use(ESLintPlugin, [{ extensions: ['js'] }]);
+      },
 
       manifest: {
         name: '신촌하나교회',
@@ -160,6 +160,7 @@ module.exports = configure(function (ctx) {
         orientation: 'portrait',
         background_color: '#ffffff',
         theme_color: '#3cd3ad',
+        gcm_sender_id: '184031147951',
         icons: [
           {
             src: 'icons/icon-128x128.png',
