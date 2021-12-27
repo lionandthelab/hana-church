@@ -70,9 +70,11 @@ module.exports = configure(function (ctx) {
 
       // https://quasar.dev/quasar-cli/handling-webpack
       // "chain" is a webpack-chain object https://github.com/neutrinojs/webpack-chain
-      chainWebpack(/* chain */) {
-        //
-      },
+      // chainWebpack(chain) {
+      //   chain
+      //     .plugin('eslint-webpack-plugin')
+      //     .use(ESLintPlugin, [{ extensions: ['js', 'vue'] }]);
+      // },
     },
 
     // Full list of options: https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-devServer
@@ -131,17 +133,24 @@ module.exports = configure(function (ctx) {
 
     // https://quasar.dev/quasar-cli/developing-pwa/configuring-pwa
     pwa: {
-      workboxPluginMode: 'GenerateSW', // 'GenerateSW' or 'InjectManifest'
-      workboxOptions: {
-        skipWaiting: true,
-        clientsClaim: true,
-      }, // only for GenerateSW
+      workboxPluginMode: 'InjectManifest', // 'GenerateSW' or 'InjectManifest'
+      // workboxOptions: {
+      //   skipWaiting: true,
+      //   clientsClaim: true,
+      // }, // only for GenerateSW
+
+      extendWebpackCustomSW(cfg) {
+        // directly change props of cfg;
+        // no need to return anything
+      },
 
       // for the custom service worker ONLY (/src-pwa/custom-service-worker.[js|ts])
       // if using workbox in InjectManifest mode
-      chainWebpackCustomSW(/* chain */) {
-        //
-      },
+      // chainWebpackCustomSW(chain) {
+      //   chain
+      //     .plugin('eslint-webpack-plugin')
+      //     .use(ESLintPlugin, [{ extensions: ['js'] }]);
+      // },
 
       manifest: {
         name: '신촌하나교회',
