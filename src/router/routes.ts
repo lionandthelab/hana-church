@@ -67,6 +67,11 @@ const routes: RouteRecordRaw[] = [
     children: [{ path: '', component: () => import('pages/Community.vue') }],
   },
   {
+    path: '/contact',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [{ path: '', component: () => import('pages/Contact.vue') }],
+  },
+  {
     path: '/:catchAll(.*)*',
     component: () => import('pages/Error404.vue'),
   },
