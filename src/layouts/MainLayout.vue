@@ -36,7 +36,7 @@ const links3 = [
 const links4 = [
   { icon: 'newspaper', text: '소식' },
   { icon: 'people', text: '공동체', url: '/community' },
-  { icon: 'map', text: '오시는길' },
+  { icon: 'map', text: '오시는길', url: '/contact' },
   { icon: 'help', text: '문의' },
 ];
 // const buttons1 = [
