@@ -2,12 +2,7 @@ import { initializeApp } from 'firebase/app';
 import firebaseConfig from '../../firebaseConfig';
 import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
-import {
-  getMessaging,
-  getToken,
-  onMessage,
-  MessagePayload,
-} from 'firebase/messaging';
+import { getMessaging, getToken, onMessage } from 'firebase/messaging';
 import { Notify } from 'quasar';
 
 const app = initializeApp(firebaseConfig);
@@ -60,6 +55,7 @@ navigator.serviceWorker
   .register('firebase-messaging-sw.js', {
     scope: 'firebase-cloud-messaging-push-scope',
   })
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   .then((registration) => {
     const messaging = getMessaging(app);
     getToken(messaging, {

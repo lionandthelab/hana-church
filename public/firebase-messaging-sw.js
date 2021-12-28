@@ -49,6 +49,7 @@ messaging.onBackgroundMessage(function (payload) {
     '[firebase-messaging-sw.js] Received background message ',
     payload
   );
+
   // Customize notification here
   const notificationTitle = '신촌하나교회';
   const notificationOptions = {
@@ -57,10 +58,4 @@ messaging.onBackgroundMessage(function (payload) {
   };
 
   // self.registration.showNotification(notificationTitle, notificationOptions);
-});
-
-self.addEventListener('notificationclick', function (event) {
-  const url = '/read-thru';
-  event.notification.close();
-  event.waitUntil(clients.openWindow(url));
 });

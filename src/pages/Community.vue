@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import {} from 'vue';
 import CommunityButtons from '../components/CommunityButtons.vue';
-import CommunityInfo from '../components/CommunityInfo.vue';
 </script>
 <template>
   <q-page style="padding-top: 50px; width: 100%; height: 100vh; overflow">
@@ -32,6 +31,5 @@ import CommunityInfo from '../components/CommunityInfo.vue';
       </div>
     </div>
     <CommunityButtons />
-    <CommunityInfo />
   </q-page>
 </template>
