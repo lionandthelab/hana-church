@@ -9,6 +9,7 @@ import {
   fasPen,
   fasDiceOne,
   fasPrayingHands,
+  fasBible,
 } from '@quasar/extras/fontawesome-v5';
 import AuthBtn from 'components/auth/AuthBtn.vue';
 import { useQuasar } from 'quasar';
@@ -34,10 +35,11 @@ const links3 = [
   { icon: fasGrinStars, text: '조이챈트', url: '/joy-chant' },
 ];
 const links4 = [
-  { icon: 'newspaper', text: '소식' },
+  // { icon: 'newspaper', text: '소식' },
+  { icon: fasBible, text: '예배', url: '/worship' },
   { icon: 'people', text: '공동체', url: '/community' },
-  { icon: 'map', text: '오시는길', url: '/contact' },
-  { icon: 'help', text: '문의' },
+  { icon: 'map', text: 'Contact Us', url: '/contact' },
+  // { icon: 'help', text: '문의' },
 ];
 // const buttons1 = [
 //   { text: 'About' },
@@ -217,7 +219,7 @@ const links4 = [
           header
           class="text-weight-bold text-uppercase text-justify"
         >
-          <q-icon name="mdi-tree-outline" /> 안내 (임한이 작업중...)
+          <q-icon name="mdi-tree-outline" /> 안내
         </q-item-label>
 
         <q-item

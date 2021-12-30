@@ -1,40 +1,45 @@
 <template>
-  <q-page
-    class="q-pa-md row items-center justify-evenly full-height"
-    style="width: 100%; max-height: 100vh"
-  >
-    <div class="q-pa-md q-gutter-md">
-      <div class="row justify-between" style="width: 50vw">
-        <q-parallax src="../assets/hana-church-logo.png" :height="250">
-          <div class="row full-width justify-center">
-            <div class="q-pa-lg text-primary text-weight-bolder text-h4">
-              사랑과 성령으로 충만한 제자들을 낳고 키우고 보내는
-            </div>
-          </div>
-          <div class="row full-width justify-center">
-            <div class="q-pa-lg text-primary text-weight-bolder text-h3">
-              "초대교회같은 공동체"
-            </div>
-          </div>
-        </q-parallax>
-      </div>
-    </div>
-    <div class="row q-pa-md">
-      <q-card style="width: 100%">
-        <q-img
-          class="rounded-borders"
-          loading="lazy"
-          fit="contain"
-          src="../assets/hana-church-logo.png"
-          :ratio="16 / 9"
+  <q-page style="width: 100%; height: 90vh">
+    <div class="q-pa-md fit">
+      <q-carousel
+        animated
+        v-model="slide"
+        navigation
+        infinite
+        :autoplay="autoplay"
+        arrows
+        transition-prev="slide-right"
+        transition-next="slide-left"
+        @mouseenter="autoplay = false"
+        @mouseleave="autoplay = true"
+        full-width
+        full-height
+      >
+        <q-carousel-slide
+          class="absolute-full"
+          style="height: 1000px"
+          :name="1"
+          img-src="https://i.ibb.co/vY1YRbp/az.jpg"
         />
-      </q-card>
+        <q-carousel-slide
+          class="absolute-full"
+          style="height: 1000px"
+          :name="2"
+          img-src="https://i.ibb.co/hyDm7KZ/jc.png"
+        />
+        <q-carousel-slide
+          class="absolute-full"
+          style="height: 1000px"
+          :name="3"
+          img-src="https://i.ibb.co/FxcGTf9/shyt.png"
+        />
+      </q-carousel>
     </div>
   </q-page>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { ref, defineComponent } from 'vue';
 
 /* eslint-disable */
 if ('Notification' in window) {
@@ -51,7 +56,10 @@ export default defineComponent({
   name: 'PageIndex',
   components: {},
   setup() {
-    //
+    return {
+      slide: ref(1),
+      autoplay: ref(true),
+    };
   },
 });
 </script>

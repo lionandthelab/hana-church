@@ -62,6 +62,11 @@ const routes: RouteRecordRaw[] = [
     ],
   },
   {
+    path: '/worship',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [{ path: '', component: () => import('pages/Worship.vue') }],
+  },
+  {
     path: '/community',
     component: () => import('layouts/MainLayout.vue'),
     children: [{ path: '', component: () => import('pages/Community.vue') }],
