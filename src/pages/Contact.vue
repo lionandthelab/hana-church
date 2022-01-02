@@ -13,9 +13,9 @@ import {} from 'vue';
       </q-toolbar>
     </q-page-sticky>
 
-    <div class="q-pa-md q-gutter-md full-width">
-      <div class="row justify-between">
-        <q-card class="my-card">
+    <div class="row q-pa-md justify-start">
+      <div class="col-xs-12 col-lg-6">
+        <q-card class="q-ma-md my-card">
           <img
             fit="cover"
             src="https://i.ibb.co/qgv5nby/Kakao-Talk-20211008-200446582-02.jpg"

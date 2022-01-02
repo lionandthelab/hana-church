@@ -117,11 +117,16 @@ onUpdated(() => {
       v-for="(verse, i) in chapter.verses"
       :key="i"
     >
-      <div class="q-py-sm" :style="paragraphStyle()" v-if="verse.title">
-        {{ verse.title }}
+      <div class="row q-py-sm" v-if="verse.title">
+        <div class="col-1-auto" :style="paragraphStyle()">
+          {{ verse.title }}
+        </div>
+        <div class="q-pa-sm col-11-auto text-center" :style="commentStyle()">
+          (총 {{ chapter.verses.length }}절)
+        </div>
       </div>
-      <div class="row q-py-sm items-center">
-        <div class="col column q-pa-xs">
+      <div class="row q-pb-xs items-center">
+        <div class="col q-py-none column">
           <div class="row justify-start">
             <p>
               <span class="q-pr-md text-weight-bolder">
