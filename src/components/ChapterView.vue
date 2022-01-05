@@ -96,19 +96,26 @@ onUpdated(() => {
 </script>
 <template>
   <div v-if="chapter">
-    <div
-      class="row q-pa-lg text-h5 text-weight-bolder items-center justify-center"
-      :style="titleStyle()"
-    >
-      <div class="col">
-        {{ bookString }} {{ chapterString }}
-        <q-btn
-          flat
-          color="primary"
-          :icon="fasFileAudio"
-          round
-          @click="speak(verseTexts)"
-        />
+    <div class="row q-pa-lg items-center justify-center">
+      <div class="row q-py-sm">
+        <div
+          class="col-1-auto text-h5 text-weight-bolder"
+          :style="titleStyle()"
+        >
+          {{ bookString }} {{ chapterString }}
+        </div>
+        <div class="q-py-sm q-pl-sm text-center" :style="commentStyle()">
+          (총 {{ chapter.verses.length }}절)
+        </div>
+        <div class="q-pa-none">
+          <q-btn
+            flat
+            color="primary"
+            :icon="fasFileAudio"
+            round
+            @click="speak(verseTexts)"
+          />
+        </div>
       </div>
     </div>
     <div
@@ -117,12 +124,9 @@ onUpdated(() => {
       v-for="(verse, i) in chapter.verses"
       :key="i"
     >
-      <div class="row q-py-sm" v-if="verse.title">
-        <div class="col-1-auto" :style="paragraphStyle()">
+      <div class="q-py-md" v-if="verse.title">
+        <div :style="paragraphStyle()">
           {{ verse.title }}
-        </div>
-        <div class="q-pa-sm col-11-auto text-center" :style="commentStyle()">
-          (총 {{ chapter.verses.length }}절)
         </div>
       </div>
       <div class="row q-pb-xs items-center">
