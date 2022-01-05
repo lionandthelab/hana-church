@@ -15,10 +15,11 @@ import {} from 'vue';
 
     <div class="row q-pa-md justify-start">
       <div class="col-xs-12 col-lg-6">
-        <q-card class="q-ma-md my-card">
-          <img
+        <q-card class="q-ma-md my-card" style="width: 80vw">
+          <q-img
             fit="cover"
             src="https://i.ibb.co/qgv5nby/Kakao-Talk-20211008-200446582-02.jpg"
+            height="500px"
           />
           <q-list>
             <q-item clickable>

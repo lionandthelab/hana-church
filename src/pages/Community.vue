@@ -15,9 +15,9 @@ import CommunityButtons from '../components/CommunityButtons.vue';
     </q-page-sticky>
 
     <div class="q-pb-md q-gutter-md">
-      <div class="row justify-between">
+      <div class="row text-center justify-center">
         <q-parallax src="../assets/hana-church-logo.png" :height="200">
-          <div class="row full-width justify-center">
+          <div class="column full-width align-center">
             <div class="q-px-xl text-primary text-weight-bolder text-h5">
               사랑과 성령으로 충만한
             </div>
@@ -47,14 +47,7 @@ import CommunityButtons from '../components/CommunityButtons.vue';
               <div class="row no-wrap items-center">
                 <div class="col text-h6 ellipsis">UCM</div>
                 <div
-                  class="
-                    col-auto
-                    text-grey text-caption
-                    q-pt-md
-                    row
-                    no-wrap
-                    items-center
-                  "
+                  class="col-auto text-grey text-caption q-pt-md row no-wrap items-center"
                 ></div>
               </div>
             </q-card-section>
@@ -88,14 +81,7 @@ import CommunityButtons from '../components/CommunityButtons.vue';
               <div class="row no-wrap items-center">
                 <div class="col text-h6 ellipsis">조이랜드</div>
                 <div
-                  class="
-                    col-auto
-                    text-grey text-caption
-                    q-pt-md
-                    row
-                    no-wrap
-                    items-center
-                  "
+                  class="col-auto text-grey text-caption q-pt-md row no-wrap items-center"
                 ></div>
               </div>
             </q-card-section>
@@ -129,14 +115,7 @@ import CommunityButtons from '../components/CommunityButtons.vue';
               <div class="row no-wrap items-center">
                 <div class="col text-h6 ellipsis">중국어 예배</div>
                 <div
-                  class="
-                    col-auto
-                    text-grey text-caption
-                    q-pt-md
-                    row
-                    no-wrap
-                    items-center
-                  "
+                  class="col-auto text-grey text-caption q-pt-md row no-wrap items-center"
                 ></div>
               </div>
             </q-card-section>
