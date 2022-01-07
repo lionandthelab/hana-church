@@ -38,7 +38,10 @@ onMounted(() => getData());
 onUpdated(() => getData());
 </script>
 <template>
-  <q-page style="padding-top: 66px; width: 100%; height: 100vh; overflow">
+  <q-page
+    style="padding-top: 66px; width: 100%; height: 100%; overflow"
+    :class="$q.dark.isActive ? 'bg-dark' : 'bg-white'"
+  >
     <q-page-sticky expand position="top" style="z-index: 999">
       <q-toolbar class="bg-primary text-white" style="border: 1px solid">
         <q-avatar>

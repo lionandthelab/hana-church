@@ -14,12 +14,15 @@ import { fasBook } from '@quasar/extras/fontawesome-v5';
 import { voiceList, setVoice, tts } from 'src/composables/useTts';
 
 const makeDateString = function (date: Date) {
-  console.log(
-    `makeDateString ${date.getFullYear()}/${
-      date.getMonth() + 1
-    }/${date.getDate()}`
-  );
-  return `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`;
+  const _month =
+    date.getMonth() + 1 < 10
+      ? `0${date.getMonth() + 1}`
+      : `${date.getMonth() + 1}`;
+  const _date =
+    date.getDate() < 10 ? `0${date.getDate()}` : `${date.getDate()}`;
+
+  console.log(`makeDateString ${date.getFullYear()}/${_month}/${_date}`);
+  return `${date.getFullYear()}/${_month}/${_date}`;
 };
 
 const myLocale = {
@@ -73,12 +76,7 @@ const onPrevDate = function () {
     parseInt(str[1]) - 1,
     parseInt(str[2]) - 1
   );
-  date.value =
-    day.getFullYear().toString() +
-    '/' +
-    (day.getMonth() + 1).toString() +
-    '/' +
-    day.getDate().toString();
+  date.value = makeDateString(day);
   proxyDate.value = date.value;
 };
 const onNextDate = function () {
@@ -88,12 +86,7 @@ const onNextDate = function () {
     parseInt(str[1]) - 1,
     parseInt(str[2]) + 1
   );
-  date.value =
-    day.getFullYear().toString() +
-    '/' +
-    (day.getMonth() + 1).toString() +
-    '/' +
-    day.getDate().toString();
+  date.value = makeDateString(day);
   proxyDate.value = date.value;
 };
 //selected date
@@ -162,7 +155,10 @@ onUpdated(() => updateProxy());
 </script>
 <template>
   <q-page-container style="padding: 0px">
-    <q-page style="padding-top: 50px; width: 100%; height: 100vh; overflow">
+    <q-page
+      style="padding-top: 50px; width: 100%; height: 100%; overflow"
+      :class="$q.dark.isActive ? 'bg-dark' : 'bg-white'"
+    >
       <q-page-sticky expand position="top" style="z-index: 999">
         <q-toolbar class="bg-primary text-white" style="border: 1px solid">
           <q-avatar>
@@ -186,7 +182,6 @@ onUpdated(() => updateProxy());
                 :events="events"
                 event-color="primary"
                 :locale="myLocale"
-                landscape
                 today-btn
               >
                 <div class="row items-center justify-end q-gutter-sm">

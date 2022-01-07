@@ -32,8 +32,8 @@ const checkedDates = ref(props.checkedDates); //date list of readers
 //update date list of readers
 const setReadDate = (date: string) => {
   if (checkedDates.value.indexOf(date) < 0) {
-    console.log('registered');
     checkedDates.value.push(date);
+    console.log('registered');
   } else {
     console.log('already registered');
     let idx = checkedDates.value.indexOf(date);

@@ -1,9 +1,18 @@
 <script setup lang="ts">
 import {} from 'vue';
-import CommunityButtons from '../components/CommunityButtons.vue';
+import { useRouter } from 'vue-router';
+import { fasBookmark } from '@quasar/extras/fontawesome-v5';
+
+const router = useRouter();
+const gotoUCM = async () => {
+  await router.push('/message/UCM');
+};
 </script>
 <template>
-  <q-page style="padding-top: 50px; width: 100%; height: 100vh; overflow">
+  <q-page
+    style="padding-top: 50px; width: 100%; height: 100%; overflow"
+    :class="$q.dark.isActive ? 'bg-dark' : 'bg-white'"
+  >
     <q-page-sticky expand position="top" style="z-index: 999">
       <q-toolbar class="bg-primary text-white" style="border: 1px solid">
         <q-avatar>
@@ -18,32 +27,34 @@ import CommunityButtons from '../components/CommunityButtons.vue';
       <div class="row text-center justify-center">
         <q-parallax src="../assets/hana-church-logo.png" :height="200">
           <div class="column full-width align-center">
-            <div class="q-px-xl text-primary text-weight-bolder text-h5">
+            <div class="q-px-lg text-primary text-weight-bolder text-h5">
               사랑과 성령으로 충만한
             </div>
-            <div class="q-px-xl text-primary text-weight-bolder text-h5">
+            <div class="q-px-lg text-primary text-weight-bolder text-h5">
               제자들을 낳고 키우고 보내는
             </div>
-            <div class="q-pa-lg text-primary text-weight-bolder text-h4">
+            <div class="q-pa-md text-primary text-weight-bolder text-h4">
               초대교회 같은 공동체
             </div>
           </div>
         </q-parallax>
       </div>
-      <div class="row q-pa-md justify-center">
-        <div class="col-xs-12 col-lg-4">
+
+      <div class="row q-pa-md">
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
           <q-card class="q-ma-md my-card">
-            <q-img src="../assets/hana-church-logo-pad.png" />
+            <q-img src="../assets/UCM토요예배15시.png" />
 
             <q-card-section>
               <q-btn
                 fab
                 color="primary"
-                icon="person"
+                :icon="fasBookmark"
                 class="absolute"
                 style="top: 0; right: 12px; transform: translateY(-50%)"
-              />
-
+                @click="gotoUCM()"
+                >예배 바로가기</q-btn
+              >
               <div class="row no-wrap items-center">
                 <div class="col text-h6 ellipsis">UCM</div>
                 <div
@@ -65,18 +76,20 @@ import CommunityButtons from '../components/CommunityButtons.vue';
             </q-card-actions>
           </q-card>
         </div>
-        <div class="col-xs-12 col-lg-4">
+
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
           <q-card class="q-ma-md my-card">
-            <q-img src="../assets/hana-church-logo-pad.png" />
+            <q-img src="../assets/조이랜드.png" />
 
             <q-card-section>
-              <q-btn
+              <!-- <q-btn
                 fab
                 color="primary"
                 icon="person"
                 class="absolute"
                 style="top: 0; right: 12px; transform: translateY(-50%)"
-              />
+              >
+              </q-btn> -->
 
               <div class="row no-wrap items-center">
                 <div class="col text-h6 ellipsis">조이랜드</div>
@@ -99,18 +112,20 @@ import CommunityButtons from '../components/CommunityButtons.vue';
             </q-card-actions>
           </q-card>
         </div>
-        <div class="col-xs-12 col-lg-4">
+
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
           <q-card class="q-ma-md my-card">
-            <q-img src="../assets/hana-church-logo-pad.png" />
+            <q-img fit="scale-down" src="../assets/hana-church-logo-pad.png" />
 
             <q-card-section>
-              <q-btn
+              <!-- <q-btn
                 fab
                 color="primary"
                 icon="person"
                 class="absolute"
                 style="top: 0; right: 12px; transform: translateY(-50%)"
-              />
+              >              
+              </q-btn> -->
 
               <div class="row no-wrap items-center">
                 <div class="col text-h6 ellipsis">중국어 예배</div>
@@ -135,9 +150,42 @@ import CommunityButtons from '../components/CommunityButtons.vue';
             </q-card-actions>
           </q-card>
         </div>
+
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+          <q-card class="q-ma-md my-card">
+            <q-img src="../assets/SHEM.png" />
+
+            <q-card-section>
+              <!-- <q-btn
+                fab
+                color="primary"
+                icon="person"
+                class="absolute"
+                style="top: 0; right: 12px; transform: translateY(-50%)"
+              /> -->
+
+              <div class="row no-wrap items-center">
+                <div class="col text-h6 ellipsis">영어 예배</div>
+                <div
+                  class="col-auto text-grey text-caption q-pt-md row no-wrap items-center"
+                ></div>
+              </div>
+            </q-card-section>
+
+            <q-card-section class="q-pt-none">
+              <div class="text-subtitle1">구성원</div>
+              <div class="text-caption text-grey">한국에 있는 영어권 청년</div>
+            </q-card-section>
+
+            <q-separator />
+
+            <q-card-actions>
+              <q-btn flat round icon="phone" />
+              010-4946-8797 (이승완 형제)
+            </q-card-actions>
+          </q-card>
+        </div>
       </div>
     </div>
-
-    <!--<CommunityButtons />-->
   </q-page>
 </template>

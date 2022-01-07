@@ -32,7 +32,10 @@ const getData = async () => {
 onMounted(() => getData());
 </script>
 <template>
-  <q-page style="padding-top: 50px; width: 100%; height: 100vh; overflow">
+  <q-page
+    style="padding-top: 50px; width: 100%; height: 100%; overflow"
+    :class="$q.dark.isActive ? 'bg-dark' : 'bg-white'"
+  >
     <q-page-sticky expand position="top" style="z-index: 999">
       <q-toolbar class="bg-primary text-white" style="border: 1px solid">
         <q-avatar>
@@ -42,9 +45,9 @@ onMounted(() => getData());
         <q-space />
       </q-toolbar>
     </q-page-sticky>
-    <div class="row q-pa-md">
+    <div class="row q-pa-sm">
       <StreamListItem
-        class="q-pa-md col-xs-6 col-sm-4 col-lg-3 col-xl-2"
+        class="q-pa-sm col-xs-6 col-sm-4 col-lg-3 col-xl-2"
         :item="item"
         v-for="(item, key) in items"
         :key="key"

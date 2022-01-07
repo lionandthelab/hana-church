@@ -14,7 +14,7 @@ const streamTo = computed(() => `/Watch/${props.item.id}`);
 </script>
 <template>
   <router-link :to="streamTo">
-    <div class="fit">
+    <div class="fit" :class="$q.dark.isActive ? 'text-white' : 'text-black'">
       <q-card style="width: 100%" :style="props.imgStyle">
         <q-img
           :style="props.imgStyle"

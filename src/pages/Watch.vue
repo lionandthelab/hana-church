@@ -22,7 +22,7 @@ const getData = async () => {
 onMounted(() => getData());
 </script>
 <template>
-  <q-page>
+  <q-page :class="$q.dark.isActive ? 'bg-dark' : 'bg-white'">
     <div class="row full-width justify-center items-center content-center">
       <StreamVideo
         v-if="stream"

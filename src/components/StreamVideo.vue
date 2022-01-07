@@ -8,7 +8,7 @@ const props = defineProps<{
 const stream = computed(() => props.item.data());
 </script>
 <template>
-  <div class="q-pa-md">
+  <div class="q-pa-md" :class="$q.dark.isActive ? 'text-white' : 'text-black'">
     <q-card>
       <q-video :ratio="16 / 9" :src="stream.url" />
       <!-- <q-card-section>

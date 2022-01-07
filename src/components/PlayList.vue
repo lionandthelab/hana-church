@@ -50,7 +50,10 @@ const getData = async () => {
 onMounted(() => getData());
 </script>
 <template>
-  <div class="q-py-sm q-px-md">
+  <div
+    class="q-py-sm q-px-md"
+    :class="$q.dark.isActive ? 'text-white' : 'text-black'"
+  >
     <div class="q-pa-xs text-weight-bold text-h6 justify-center">
       # {{ props.playlistName }}
     </div>

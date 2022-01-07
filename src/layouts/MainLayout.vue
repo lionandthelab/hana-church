@@ -10,6 +10,8 @@ import {
   fasDiceOne,
   fasPrayingHands,
   fasBible,
+  fasImage,
+  fasChurch,
 } from '@quasar/extras/fontawesome-v5';
 import AuthBtn from 'components/auth/AuthBtn.vue';
 import { useQuasar } from 'quasar';
@@ -36,8 +38,10 @@ const links3 = [
 ];
 const links4 = [
   // { icon: 'newspaper', text: '소식' },
+  { icon: fasChurch, text: '교회소개', url: '/church-intro' },
   { icon: fasBible, text: '예배', url: '/worship' },
   { icon: 'people', text: '공동체', url: '/community' },
+  { icon: fasImage, text: '갤러리', url: '/gallery' },
   { icon: 'map', text: 'Contact Us', url: '/contact' },
   // { icon: 'help', text: '문의' },
 ];
@@ -150,6 +154,7 @@ const links4 = [
             spinner-color="white"
           />
         </div>-->
+
         <q-item
           v-for="link in links1"
           :key="link.text"
@@ -166,6 +171,30 @@ const links4 = [
         </q-item>
 
         <q-separator class="q-mt-md q-mb-xs" />
+
+        <q-item-label
+          header
+          class="text-weight-bold text-uppercase text-justify"
+        >
+          <q-icon name="mdi-tree-outline" /> 안내
+        </q-item-label>
+
+        <q-item
+          v-for="link in links4"
+          :key="link.text"
+          v-ripple
+          clickable
+          :to="link.url"
+        >
+          <q-item-section avatar>
+            <q-icon color="grey" :name="link.icon" />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>{{ link.text }}</q-item-label>
+          </q-item-section>
+        </q-item>
+
+        <q-separator class="q-mt-md q-mb-lg" />
 
         <q-item-label
           header
@@ -214,30 +243,6 @@ const links4 = [
         </q-item>
 
         <q-separator class="q-my-md" />
-
-        <q-item-label
-          header
-          class="text-weight-bold text-uppercase text-justify"
-        >
-          <q-icon name="mdi-tree-outline" /> 안내
-        </q-item-label>
-
-        <q-item
-          v-for="link in links4"
-          :key="link.text"
-          v-ripple
-          clickable
-          :to="link.url"
-        >
-          <q-item-section avatar>
-            <q-icon color="grey" :name="link.icon" />
-          </q-item-section>
-          <q-item-section>
-            <q-item-label>{{ link.text }}</q-item-label>
-          </q-item-section>
-        </q-item>
-
-        <q-separator class="q-mt-md q-mb-lg" />
 
         <!--<div class="q-px-md text-grey-9">
           <div class="row items-center q-gutter-x-sm q-gutter-y-xs">
