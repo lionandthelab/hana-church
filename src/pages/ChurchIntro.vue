@@ -89,7 +89,7 @@ const layout = computed(() => {
             </div>
           </q-timeline-entry>
 
-          <q-timeline-entry heading>목회자</q-timeline-entry>
+          <q-timeline-entry heading>목회자 소개</q-timeline-entry>
 
           <q-timeline-entry
             title="임성일 선교사"
@@ -97,23 +97,35 @@ const layout = computed(() => {
             side="left"
             icon="person"
           >
-            <div>
-              <q-card class="q-ma-lg">
+            <div class="q-pa-none row items-end">
+              <q-card class="my-card full-width" flat bordered>
                 <q-img src="../assets/임성일_선교사님.jpeg" />
+
+                <q-card-section>
+                  <div class="text-overline text-grey-9">
+                    현) 연세대학교 물리학과 교수
+                  </div>
+                </q-card-section>
               </q-card>
             </div>
           </q-timeline-entry>
 
           <q-timeline-entry
             title="이석만 목사"
-            subtitle="신촌하나교회 청년대학부 목회자"
+            subtitle="신촌하나교회 목회자"
             side="right"
             icon="person"
             color="cyan"
           >
-            <div>
-              <q-card class="q-ma-lg">
+            <div class="q-pa-none row items-start">
+              <q-card class="my-card full-width" flat bordered>
                 <q-img src="../assets/이석만_목사님.jpeg" />
+
+                <q-card-section>
+                  <div class="text-overline text-grey-9">
+                    한국침례신학대학교 목회연구원 M.div
+                  </div>
+                </q-card-section>
               </q-card>
             </div>
           </q-timeline-entry>
@@ -125,9 +137,15 @@ const layout = computed(() => {
             icon="person"
             color="orange"
           >
-            <div>
-              <q-card class="q-ma-lg">
+            <div class="q-pa-none row items-end">
+              <q-card class="my-card full-width" flat bordered>
                 <q-img src="../assets/하순회_전도사님.jpeg" />
+
+                <q-card-section>
+                  <div class="text-overline text-grey-9">
+                    현) 서울대학교 컴퓨터공학부 교수
+                  </div>
+                </q-card-section>
               </q-card>
             </div>
           </q-timeline-entry>
@@ -139,9 +157,15 @@ const layout = computed(() => {
             side="right"
             color="purple"
           >
-            <div>
-              <q-card class="q-ma-lg">
+            <div class="q-pa-none row items-start">
+              <q-card class="my-card full-width" flat bordered>
                 <q-img src="../assets/이지웅_전도사님.jpeg" />
+
+                <q-card-section>
+                  <div class="text-overline text-grey-9">
+                    한국침례신학대학교 목회연구원 M.div
+                  </div>
+                </q-card-section>
               </q-card>
             </div>
           </q-timeline-entry>
