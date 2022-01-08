@@ -6,8 +6,9 @@ import {
   fasAngleDown,
 } from '@quasar/extras/fontawesome-v5';
 
+const totalPage = 4;
 const pictures = [''];
-for (let x = 1; x <= 85; x++) {
+for (let x = 1; x <= totalPage * 10; x++) {
   pictures.push(
     `https://firebasestorage.googleapis.com/v0/b/hana-church.appspot.com/o/images%2Fcommunity%2F${x}.jpeg?alt=media&token=d4d6f288-fe0c-467f-83da-4bbe62003d6b`
   );
@@ -49,7 +50,7 @@ const zoom = ref<boolean>(false);
                 round
                 :icon="fasAngleUp"
                 text-color="white"
-                @click="pictureIdx++"
+                @click="pictureIdx--"
               />
             </div>
             <div class="row justify-center">
@@ -67,43 +68,52 @@ const zoom = ref<boolean>(false);
                 round
                 :icon="fasAngleDown"
                 text-color="white"
-                @click="pictureIdx--"
+                @click="pictureIdx++"
               />
             </div>
           </div>
         </q-card>
       </q-dialog>
-      <div
-        v-for="(picture, i) in pictures"
-        :key="picture"
-        class="q-pa-xs col-xs-6 col-sm-4 col-md-4 col-lg-3 col-xl-2"
+      <q-intersection
+        v-for="pageIdx in 7"
+        :key="`pageIdx-${pageIdx}`"
+        class="items"
       >
-        <div class="fit">
-          <q-card
-            v-ripple
-            class="my-box cursor-pointer q-hoverable"
-            style="width: 100%; background-color: black"
-            @click="
-              pictureClick(i);
-              zoom = true;
-            "
+        <div class="row">
+          <div
+            v-for="(picture, i) in pictures.slice(pageIdx * 6, pageIdx * 6 + 6)"
+            :key="picture"
+            class="q-pa-xs col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xl-4"
           >
-            <span class="q-focus-helper"></span>
-            <q-img
-              fit="cover"
-              :src="picture"
-              :ratio="4 / 3"
-              class="transparent"
+            <q-card
+              v-ripple
+              class="my-box cursor-pointer q-hoverable"
+              style="width: 100%; background-color: black"
+              @click="
+                pictureClick(pageIdx * 6 + i);
+                zoom = true;
+              "
             >
-              <template v-slot:loading>
-                <div class="text-subtitle1 text-white">Loading...</div>
-              </template>
-            </q-img>
-          </q-card>
+              <span class="q-focus-helper"></span>
+              <q-img
+                fit="cover"
+                :src="picture"
+                :ratio="4 / 3"
+                class="transparent"
+              >
+                <template v-slot:loading>
+                  <div class="text-subtitle1 text-white">Loading...</div>
+                </template>
+              </q-img>
+            </q-card>
+          </div>
         </div>
-      </div>
+      </q-intersection>
     </div>
   </q-page>
 </template>
 
-<style></style>
+<style lang="sass" scoped>
+.items
+  width: 100vw
+</style>
